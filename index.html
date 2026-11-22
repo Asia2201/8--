@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Використання перемикачів. Глобальні змінні в Python — 8 клас</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Загальний заголовок кожної сторінки -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="meta-badges">
+        <span class="meta-pill">🎓 <strong>Клас:</strong> 8</span>
+        <span class="meta-pill">💻 <strong>Предмет:</strong> Інформатика</span>
+        <span class="meta-pill">📘 <strong>Тема:</strong> «Використання перемикачів. Глобальні змінні в Python»</span>
+      </div>
+      <div class="meta-badges">
+        <span class="meta-pill">👤 <strong>Учень:</strong> <span id="hdr-student-name">Не вказано</span></span>
+        <label class="meta-pill" for="hdr-student-class">🏫 <strong>Клас:</strong>
+          <input id="hdr-student-class" type="text" placeholder="8-А" maxlength="10" />
+        </label>
+      </div>
+    </div>
+  </header>
+
+  <!-- Індикатор проходження та поточний бал -->
+  <div class="progress-strip">
+    <div class="progress-inner">
+      <div style="font-size:0.9rem; font-weight:700; color:#1e1b4b;">
+        📊 Проходження роботи: <span id="progress-percent">0%</span> (<span id="completed-count">0</span>/8 розділів)
+      </div>
+      <div class="progress-track">
+        <div id="progress-fill" class="progress-fill"></div>
+      </div>
+      <div style="font-size:0.95rem; font-weight:800; color:#0d9488;">
+        🏆 Поточний результат: <span id="live-score">0</span> / 36 балів
+      </div>
+    </div>
+  </div>
+
+  <!-- Верхня панель навігації з назвами всіх блоків -->
+  <nav class="nav-bar" aria-label="Навігація по розділах">
+    <div class="nav-inner" id="top-nav">
+      <button type="button" class="nav-btn active" data-page="start">🏠 1. Старт роботи</button>
+      <button type="button" class="nav-btn" data-page="theory">📖 2. Теоретичний блок</button>
+      <button type="button" class="nav-btn" data-page="sim1">☑️ 3. Симулятор №1</button>
+      <button type="button" class="nav-btn" data-page="sim2">🌐 4. Симулятор №2</button>
+      <button type="button" class="nav-btn" data-page="prac1">🛠️ 5. Практична №1</button>
+      <button type="button" class="nav-btn" data-page="prac2">⚙️ 6. Практична №2</button>
+      <button type="button" class="nav-btn" data-page="test">📝 7. Підсумковий тест</button>
+      <button type="button" class="nav-btn" data-page="report">📄 8. Результати та звіт</button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <!-- СТОРІНКА 1. СТАРТ РОБОТИ -->
+    <section id="page-start" class="page-section active">
+      <div class="card card-accent">
+        <span style="display:inline-block; background:#ede9fe; color:#5b21b6; font-weight:700; padding:5px 12px; border-radius:999px; font-size:0.84rem; margin-bottom:10px;">
+          Інтерактивний навчальний практикум
+        </span>
+        <h1>Практична робота з інформатики. 8 клас</h1>
+        <h2 style="color:#0d9488; font-size:1.25rem;">Тема: «Використання перемикачів. Глобальні змінні в Python»</h2>
+
+        <div class="info-grid">
+          <div class="info-box">
+            <span>🎯 Загальна кількість балів</span>
+            <strong>36 балів</strong>
+          </div>
+          <div class="info-box">
+            <span>🧩 Кількість завдань</span>
+            <strong>18 завдань (2 симулятори + 2 практикуми + 8 тестів)</strong>
+          </div>
+          <div class="info-box">
+            <span>⏱️ Орієнтовний час виконання</span>
+            <strong>35–45 хвилин</strong>
+          </div>
+          <div class="info-box">
+            <span>📜 Підсумок роботи</span>
+            <strong>Автоматичний звіт та оцінка за 12-бальною шкалою</strong>
+          </div>
+        </div>
+
+        <p style="color:#475569; line-height:1.55;">
+          Введіть своє прізвище, ім'я та клас один раз нижче. Після цього відкриється доступ до всіх розділів практикуму, а ваші відповіді й бали автоматично зберігатимуться.
+        </p>
+
+        <div class="form-grid">
+          <div>
+            <label class="field-label" for="start-lastname">Прізвище *</label>
+            <input id="start-lastname" class="text-input" type="text" placeholder="Наприклад: Коваленко" />
+          </div>
+          <div>
+            <label class="field-label" for="start-firstname">Ім'я *</label>
+            <input id="start-firstname" class="text-input" type="text" placeholder="Наприклад: Артем" />
+          </div>
+          <div>
+            <label class="field-label" for="start-class">Клас *</label>
+            <input id="start-class" class="text-input" type="text" placeholder="Наприклад: 8-А" />
+          </div>
+        </div>
+
+        <div id="start-error" class="feedback err" style="display:none; margin-bottom:14px;"></div>
+
+        <button type="button" id="btn-start-work" class="btn btn-primary" style="font-size:1.05rem; padding:14px 28px;">
+          🚀 Розпочати роботу
+        </button>
+      </div>
+    </section>
+
+    <!-- СТОРІНКА 2. ТЕОРЕТИЧНИЙ БЛОК -->
+    <section id="page-theory" class="page-section">
+      <div class="card card-accent">
+        <h2>📖 Теоретичний блок (конспект із теми)</h2>
+        <p style="color:#475569;">Ознайомтеся з теоретичним матеріалом. Теоретичний блок є навчальним (0 балів), але знання з нього знадобляться для виконання симуляторів, практичних завдань і тесту.</p>
+      </div>
+
+      <div class="card card-blue">
+        <h3>Розділ А. Перемикачі в Python (Checkbutton)</h3>
+        <ul style="line-height:1.65; color:#1e293b;">
+          <li><strong>Що таке перемикачі?</strong> Перемикач (прапорець) — це елемент графічного інтерфейсу користувача, який може перебувати у двох станах: <em>увімкнений</em> (позначений галочкою) або <em>вимкнений</em>.</li>
+          <li><strong>Для чого використовують Checkbutton?</strong> Віджет <code>Checkbutton</code> бібліотеки <code>tkinter</code> застосовують тоді, коли користувачеві потрібно обрати один або декілька незалежних пунктів зі списку (наприклад, улюблені предмети, додаткові опції замовлення, налаштування програми).</li>
+          <li><strong>Чим перемикачі відрізняються від звичайних кнопок?</strong> Звичайна кнопка (<code>Button</code>) лише запускає дію під час натискання і не зберігає стан вибору. Перемикач (<code>Checkbutton</code>) фіксує стан (0 або 1), який можна зчитати у будь-який момент.</li>
+          <li><strong>Як створювати та отримувати значення?</strong> Для збереження стану створюють спеціальну цілочисельну змінну <code>IntVar()</code>, прив'язують її параметром <code>variable</code>, а поточне значення отримують методом <code>.get()</code>.</li>
+        </ul>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Властивість / елемент</th>
+              <th>Звичайна кнопка (<code>Button</code>)</th>
+              <th>Перемикач (<code>Checkbutton</code>)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Збереження стану вибору</td>
+              <td>Не зберігає (спрацьовує в момент кліку)</td>
+              <td>Зберігає стан у змінній <code>IntVar()</code> (<code>1</code> або <code>0</code>)</td>
+            </tr>
+            <tr>
+              <td>Вибір кількох пунктів</td>
+              <td>Не призначена для множинного вибору</td>
+              <td>Дозволяє одночасно обрати кілька прапорців</td>
+            </tr>
+            <tr>
+              <td>Приклад із життя</td>
+              <td>Дзвінок біля дверей</td>
+              <td>Вимикач світла або список покупок із галочками</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>Приклад коду створення перемикача у Tkinter:</h4>
+        <pre class="code-block">from tkinter import *
+
+root = Tk()
+root.title("Мої вподобання")
+
+var1 = IntVar()
+
+check = Checkbutton(
+    root,
+    text="Я люблю програмувати",
+    variable=var1
+)
+check.pack()
+
+root.mainloop()</pre>
+
+        <h4>Покрокове пояснення кожного рядка коду:</h4>
+        <ul class="code-line-list">
+          <li><code>from tkinter import *</code> — імпортує всі класи та функції бібліотеки Tkinter для створення віконного інтерфейсу.</li>
+          <li><code>root = Tk()</code> — створює головне вікно програми.</li>
+          <li><code>root.title("Мої вподобання")</code> — встановлює заголовок вікна.</li>
+          <li><code>var1 = IntVar()</code> — створює спеціальну змінну керування для збереження цілого значення (<code>1</code> або <code>0</code>).</li>
+          <li><code>check = Checkbutton(root, text="Я люблю програмувати", variable=var1)</code> — створює перемикач у вікні <code>root</code> із написом та пов'язує його зі змінною <code>var1</code> через параметр <code>variable</code>.</li>
+          <li><code>check.pack()</code> — розміщує перемикач у вікні програми.</li>
+          <li><code>root.mainloop()</code> — запускає головний цикл обробки подій вікна.</li>
+        </ul>
+
+        <div class="rule-callout">
+          💡 Запам'ятайте: <code>IntVar()</code> зберігає ціле число. Значення <code>1</code> означає, що перемикач <strong>увімкнений</strong>, а значення <code>0</code> — що перемикач <strong>вимкнений</strong>. Отримати це число можна викликом <code>var1.get()</code>.
+        </div>
+      </div>
+
+      <div class="card card-teal">
+        <h3>Розділ Б. Глобальні змінні в Python</h3>
+        <ul style="line-height:1.65; color:#1e293b;">
+          <li><strong>Що таке змінна?</strong> Іменована область пам'яті комп'ютера, у якій зберігаються дані під час виконання програми.</li>
+          <li><strong>Що таке локальна змінна?</strong> Змінна, створена всередині функції. Вона існує лише під час роботи цієї функції і недоступна за її межами (як особистий чернетковий зошит на парті учня).</li>
+          <li><strong>Що таке глобальна змінна?</strong> Змінна, створена в основній частині програми (поза функціями). Її значення бачать усі функції програми (як класна дошка або спільне табло рахунку на стадіоні).</li>
+          <li><strong>Для чого використовують команду <code>global</code>?</strong> Якщо всередині функції потрібно не просто прочитати, а <em>змінити</em> значення глобальної змінної, її обов'язково потрібно оголосити командою <code>global ім_я_змінної</code>.</li>
+        </ul>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Критерій</th>
+              <th>Локальна змінна</th>
+              <th>Глобальна змінна</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Де створюється</td>
+              <td>Усередині функції (<code>def ...</code>)</td>
+              <td>У головному коді програми (поза функціями)</td>
+            </tr>
+            <tr>
+              <td>Де доступна</td>
+              <td>Лише всередині своєї функції</td>
+              <td>У всій програмі та в усіх функціях</td>
+            </tr>
+            <tr>
+              <td>Як змінити у функції</td>
+              <td>Звичайним присвоєнням <code>x = 5</code></td>
+              <td>Спочатку оголосити <code>global x</code>, потім змінювати</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>Приклад роботи з глобальною змінною:</h4>
+        <pre class="code-block">score = 0
+
+def add_point():
+    global score
+    score = score + 1
+
+add_point()
+print(score)</pre>
+
+        <ul class="code-line-list">
+          <li><code>score = 0</code> — створює глобальну змінну <code>score</code> зі стартовим значенням <code>0</code> у головній частині програми.</li>
+          <li><code>def add_point():</code> — оголошує функцію <code>add_point</code> для нарахування бала.</li>
+          <li><code>global score</code> — повідомляє Python, що всередині функції буде змінюватися саме глобальна змінна <code>score</code>, а не створюватися нова локальна.</li>
+          <li><code>score = score + 1</code> — збільшує значення глобальної змінної <code>score</code> на 1.</li>
+          <li><code>add_point()</code> — викликає функцію (після цього <code>score</code> дорівнює <code>1</code>).</li>
+          <li><code>print(score)</code> — виводить на екран число <code>1</code>.</li>
+        </ul>
+
+        <div class="rule-callout">
+          ⚠️ Головне правило: якщо функція повинна змінювати глобальну змінну, потрібно обов'язково оголосити її всередині функції за допомогою ключового слова <code>global</code>!
+        </div>
+      </div>
+
+      <div class="footer-nav">
+        <button type="button" class="btn btn-secondary" data-nav="start">⬅️ Назад</button>
+        <button type="button" class="btn btn-outline" data-nav="start">🏠 На головну</button>
+        <button type="button" class="btn btn-primary" data-nav="sim1">Далі ➡️</button>
+      </div>
+    </section>
+
+    <!-- СТОРІНКА 3. СИМУЛЯТОР №1 — ПЕРЕМИКАЧІ -->
+    <section id="page-sim1" class="page-section">
+      <div class="card card-accent">
+        <h2>☑️ Симулятор №1 — Використання перемикачів (Checkbutton)</h2>
+        <p style="color:#475569;">
+          Контрольна умова (<strong>+2 бали</strong>): увімкніть хоча б <strong>2 перемикачі</strong> та натисніть кнопку <strong>«Перевірити»</strong>. Запам'ятайте кількість обраних прапорців — вона знадобиться у Завданні 4 Практичної частини №1!
+        </p>
+
+        <div class="sim-window">
+          <div class="sim-titlebar">
+            <span>🪟 Python Tkinter — Мої вподобання</span>
+            <span>IntVar() монітор</span>
+          </div>
+          <div class="sim-body">
+            <div id="sim1-checkboxes"></div>
+
+            <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:14px;">
+              <button type="button" id="sim1-check-btn" class="btn btn-primary">✅ Перевірити</button>
+              <button type="button" id="sim1-clear-btn" class="btn btn-secondary">🧹 Очистити вибір</button>
+            </div>
+
+            <div id="sim1-output" class="feedback info" style="margin-top:14px;">
+              Оберіть перемикачі вище та натисніть «Перевірити», щоб побачити результат обробки.
+            </div>
+            <div id="sim1-bonus-status" style="margin-top:8px; font-weight:700; color:#0d9488;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-blue">
+        <h3>🐍 Як аналогічна логіка реалізується у Python (Checkbutton + IntVar):</h3>
+        <pre class="code-block" id="sim1-live-code"></pre>
+      </div>
+
+      <div class="footer-nav">
+        <button type="button" class="btn btn-secondary" data-nav="theory">⬅️ Назад</button>
+        <button type="button" class="btn btn-outline" data-nav="start">🏠 На головну</button>
+        <button type="button" class="btn btn-primary" data-nav="sim2">Далі ➡️</button>
+      </div>
+    </section>
+
+    <!-- СТОРІНКА 4. СИМУЛЯТОР №2 — ГЛОБАЛЬНІ ЗМІННІ -->
+    <section id="page-sim2" class="page-section">
+      <div class="card card-teal">
+        <h2>🌐 Симулятор №2 — Глобальні змінні («Лічильник балів»)</h2>
+        <p style="color:#475569;">
+          Контрольна умова (<strong>+2 бали</strong>): випробуйте різні кнопки зміни рахунку та встановіть значення глобальної змінної <code>score = 10</code> (це також допоможе виконати Завдання 4 Практичної частини №2).
+        </p>
+
+        <div class="sim-window">
+          <div class="sim-titlebar">
+            <span>🪟 Python Global State — Лічильник балів</span>
+            <span>Глобальна змінна: score</span>
+          </div>
+          <div class="sim-body">
+            <div class="counter-display">
+              score = <span id="sim2-score-val">0</span>
+            </div>
+
+            <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center;">
+              <button type="button" id="sim2-add1" class="btn btn-primary">➕ Додати 1 бал</button>
+              <button type="button" id="sim2-add5" class="btn btn-teal">➕ Додати 5 балів</button>
+              <button type="button" id="sim2-sub1" class="btn btn-outline">➖ Відняти 1 бал</button>
+              <button type="button" id="sim2-reset" class="btn btn-secondary">🔄 Скинути</button>
+            </div>
+
+            <div id="sim2-action-log" class="feedback info" style="margin-top:14px;">
+              Початкове значення глобальної змінної: <strong>score = 0</strong>. Натискайте кнопки вище.
+            </div>
+            <div id="sim2-bonus-status" style="margin-top:8px; font-weight:700; color:#0d9488;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-accent">
+        <h3>🐍 Відповідний код Python із використанням <code>global</code>:</h3>
+        <pre class="code-block" id="sim2-live-code"></pre>
+        <div class="rule-callout">
+          ℹ️ Пояснення: змінна <code>score</code> оголошена поза функціями, тому вона зберігає <strong>спільне значення</strong> для всієї програми. Кожна функція (<code>add_1()</code>, <code>add_5()</code>, <code>sub_1()</code>, <code>reset_score()</code>) використовує <code>global score</code>, щоб змінювати саме цю спільну змінну.
+        </div>
+      </div>
+
+      <div class="footer-nav">
+        <button type="button" class="btn btn-secondary" data-nav="sim1">⬅️ Назад</button>
+        <button type="button" class="btn btn-outline" data-nav="start">🏠 На головну</button>
+        <button type="button" class="btn btn-primary" data-nav="prac1">Далі ➡️</button>
+      </div>
+    </section>
+
+    <!-- СТОРІНКА 5. ПРАКТИЧНА ЧАСТИНА №1 -->
+    <section id="page-prac1" class="page-section">
+      <div class="card card-accent">
+        <h2>🛠️ Практична частина №1 — «Створення програми з перемикачами»</h2>
+        <p style="color:#475569;">Максимальна кількість балів: <strong>8 балів</strong> (4 завдання по 2 бали). Кожне завдання зараховується один раз при правильній відповіді.</p>
+      </div>
+      <div id="prac1-container"></div>
+
+      <div class="footer-nav">
+        <button type="button" class="btn btn-secondary" data-nav="sim2">⬅️ Назад</button>
+        <button type="button" class="btn btn-outline" data-nav="start">🏠 На головну</button>
+        <button type="button" class="btn btn-primary" data-nav="prac2">Далі ➡️</button>
+      </div>
+    </section>
+
+    <!-- СТОРІНКА 6. ПРАКТИЧНА ЧАСТИНА №2 -->
+    <section id="page-prac2" class="page-section">
+      <div class="card card-teal">
+        <h2>⚙️ Практична частина №2 — «Використання глобальних змінних»</h2>
+        <p style="color:#475569;">Максимальна кількість балів: <strong>8 балів</strong> (4 завдання по 2 бали). Кожне завдання зараховується один раз при правильній відповіді.</p>
+      </div>
+      <div id="prac2-container"></div>
+
+      <div class="footer-nav">
+        <button type="button" class="btn btn-secondary" data-nav="prac1">⬅️ Назад</button>
+        <button type="button" class="btn btn-outline" data-nav="start">🏠 На головну</button>
+        <button type="button" class="btn btn-primary" data-nav="test">Далі ➡️</button>
+      </div>
+    </section>
+
+    <!-- СТОРІНКА 7. ПІДСУМКОВИЙ ТЕСТ -->
+    <section id="page-test" class="page-section">
+      <div class="card card-blue">
+        <h2>📝 Підсумковий тест із теми</h2>
+        <p style="color:#475569;">Максимальна кількість балів: <strong>16 балів</strong> (8 запитань по 2 бали). Повторне нарахування балів за вже зараховане запитання заблоковане.</p>
+      </div>
+      <div id="test-container"></div>
+
+      <div class="footer-nav">
+        <button type="button" class="btn btn-secondary" data-nav="prac2">⬅️ Назад</button>
+        <button type="button" class="btn btn-outline" data-nav="start">🏠 На головну</button>
+        <button type="button" class="btn btn-primary" data-nav="report">Далі до звіту ➡️</button>
+      </div>
+    </section>
+
+    <!-- СТОРІНКА 8. РЕЗУЛЬТАТИ ТА ЗВІТ -->
+    <section id="page-report" class="page-section">
+      <div class="card" id="report-sheet">
+        <div class="report-header">
+          <div style="font-weight:700; font-size:1.05rem; color:#1e1b4b;">
+            КЗ «Ліцей "Інтелект" Долинської міської ради»
+          </div>
+          <h2 style="margin:8px 0 4px;">Звіт про виконання практичної роботи</h2>
+          <div style="color:#334155; font-size:0.95rem;">
+            <strong>Предмет:</strong> Інформатика &nbsp;|&nbsp; <strong>Клас:</strong> <span id="rep-class-top">8</span>
+          </div>
+          <div style="color:#0f172a; font-weight:600; margin-top:4px;">
+            Тема: «Використання перемикачів. Глобальні змінні в Python»
+          </div>
+        </div>
+
+        <div class="info-grid">
+          <div class="info-box">
+            <span>👤 ПІБ учня</span>
+            <strong id="rep-student-fullname">—</strong>
+          </div>
+          <div class="info-box">
+            <span>🏫 Клас</span>
+            <strong id="rep-student-class">—</strong>
+          </div>
+          <div class="info-box">
+            <span>📅 Дата виконання</span>
+            <strong id="rep-date">—</strong>
+          </div>
+          <div class="info-box">
+            <span>📌 Статус виконання</span>
+            <strong id="rep-status">—</strong>
+          </div>
+        </div>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Розділ роботи</th>
+              <th>Набрані бали</th>
+              <th>Максимум</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Теоретичний блок</td>
+              <td>0</td>
+              <td>0 балів</td>
+            </tr>
+            <tr>
+              <td>Симулятор №1 (базовий блок)</td>
+              <td>0</td>
+              <td>0 балів</td>
+            </tr>
+            <tr>
+              <td>Симулятор №2 (базовий блок)</td>
+              <td>0</td>
+              <td>0 балів</td>
+            </tr>
+            <tr>
+              <td>Практична частина №1 («Створення програми з перемикачами»)</td>
+              <td id="rep-prac1">0</td>
+              <td>8 балів</td>
+            </tr>
+            <tr>
+              <td>Практична частина №2 («Використання глобальних змінних»)</td>
+              <td id="rep-prac2">0</td>
+              <td>8 балів</td>
+            </tr>
+            <tr>
+              <td>Підсумковий тест</td>
+              <td id="rep-test">0</td>
+              <td>16 балів</td>
+            </tr>
+            <tr>
+              <td>Додаткові практичні контрольні завдання (Симулятор №1: <span id="rep-s1">0</span>/2, Симулятор №2: <span id="rep-s2">0</span>/2)</td>
+              <td id="rep-bonus">0</td>
+              <td>4 бали</td>
+            </tr>
+            <tr style="background:#eef2ff; font-weight:800;">
+              <td>УСЬОГО</td>
+              <td id="rep-total">0</td>
+              <td>36 балів</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="info-grid">
+          <div class="info-box">
+            <span>🎯 Набрано балів</span>
+            <strong><span id="rep-total-box">0</span> / 36</strong>
+          </div>
+          <div class="info-box">
+            <span>📈 Відсоток виконання</span>
+            <strong id="rep-percent">0%</strong>
+          </div>
+          <div class="info-box" style="border-color:#0d9488; background:linear-gradient(135deg,#ecfeff,#f5f3ff);">
+            <span>🏅 Оцінка за 12-бальною шкалою</span>
+            <strong style="font-size:1.45rem; color:#0d9488;"><span id="rep-grade12">0</span> / 12</strong>
+          </div>
+        </div>
+
+        <div class="signatures">
+          <div>
+            <div class="sig-line"></div>
+            <div style="font-size:0.88rem; color:#475569;">Підпис учня (<span id="rep-sig-student"></span>)</div>
+          </div>
+          <div>
+            <div class="sig-line"></div>
+            <div style="font-size:0.88rem; color:#475569;">Підпис вчителя інформатики</div>
+          </div>
+        </div>
+
+        <div class="no-print" style="display:flex; flex-wrap:wrap; gap:12px; margin-top:24px;">
+          <button type="button" id="btn-print-report" class="btn btn-primary">🖨️ Друкувати звіт / Зберегти у PDF</button>
+          <button type="button" id="btn-reset-all" class="btn btn-secondary">🔄 Скинути всі результати для нової спроби</button>
+        </div>
+      </div>
+
+      <div class="footer-nav">
+        <button type="button" class="btn btn-secondary" data-nav="test">⬅️ Назад</button>
+        <button type="button" class="btn btn-outline" data-nav="start">🏠 На головну</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
