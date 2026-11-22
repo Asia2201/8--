@@ -1,0 +1,701 @@
+/* CSS Stylesheet for Informaitcs 8th Grade Interactive Lab */
+
+:root {
+    --bg-light: #f8fafc;
+    --card-bg: #ffffff;
+    --card-border: #e2e8f0;
+
+    --purple-primary: #7c3aed;
+    --purple-hover: #6d28d9;
+    --purple-light: #f3e8ff;
+
+    --blue-primary: #2563eb;
+    --blue-dark: #1e40af;
+    --blue-light: #dbeafe;
+
+    --teal-primary: #0d9488;
+    --teal-hover: #0f766e;
+    --teal-light: #ccfbf1;
+
+    --text-dark: #0f172a;
+    --text-muted: #64748b;
+    --text-light: #f8fafc;
+
+    --success-color: #10b981;
+    --danger-color: #ef4444;
+    --warning-color: #f59e0b;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* ШАПКА ТА НАВІГАЦІЯ */
+.global-header {
+    background: linear-gradient(135deg, #2e1065, #1e1b4b, #0f172a);
+    color: var(--text-light);
+    padding: 1.2rem 2rem 0.5rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.header-top {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding-bottom: 10px;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.logo-icon {
+    font-size: 2.2rem;
+}
+
+.header-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+}
+
+.header-subtitle {
+    font-size: 0.85rem;
+    color: #cbd5e1;
+}
+
+.user-meta-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    padding: 8px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.15);
+    flex-wrap: wrap;
+}
+
+.meta-field {
+    font-size: 0.9rem;
+}
+
+.meta-label {
+    color: #94a3b8;
+    margin-right: 4px;
+}
+
+.meta-value {
+    color: var(--teal-light);
+    font-weight: 700;
+}
+
+.meta-input {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+    width: 65px;
+    font-family: inherit;
+    text-align: center;
+}
+
+.score-badge {
+    background: var(--teal-primary);
+    padding: 4px 10px;
+    border-radius: 8px;
+    color: white;
+}
+
+/* ВКЛАДКИ НАВІГАЦІЇ */
+.nav-tabs {
+    max-width: 1200px;
+    margin: 10px auto 0 auto;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+}
+
+.tab-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #cbd5e1;
+    padding: 8px 14px;
+    border-radius: 8px 8px 0 0;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.tab-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.tab-btn.active {
+    background: var(--bg-light);
+    color: var(--purple-primary);
+    border-color: var(--bg-light);
+    font-weight: 700;
+}
+
+.tab-btn.completed::after {
+    content: " ✓";
+    color: var(--success-color);
+}
+
+.progress-bar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--teal-primary);
+    transition: width 0.3s ease;
+}
+
+/* ОСНОВНИЙ КОНТЕЙНЕР */
+.main-container {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.page-block {
+    display: none;
+}
+
+.page-block.active {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* HERO СТОРІНКА 1 */
+.hero-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    border: 1px solid var(--card-border);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.hero-badge {
+    display: inline-block;
+    background: var(--purple-light);
+    color: var(--purple-primary);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.hero-title {
+    font-size: 1.8rem;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+    font-weight: 800;
+}
+
+.hero-desc {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+.start-form-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 1.8rem;
+    border-radius: 16px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin: 1.2rem 0;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    font-size: 0.95rem;
+    font-family: inherit;
+}
+
+.info-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    background: var(--blue-light);
+    padding: 14px 18px;
+    border-radius: 12px;
+    margin: 1.5rem 0;
+    color: var(--blue-dark);
+    font-size: 0.9rem;
+}
+
+/* КАРТКИ ТА ЕЛЕМЕНТИ ТЕОРІЇ */
+.block-header {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 1.8rem;
+}
+
+.block-num {
+    background: linear-gradient(135deg, var(--purple-primary), var(--blue-primary));
+    color: white;
+    font-weight: 800;
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-size: 1.3rem;
+}
+
+.card {
+    background: white;
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 1.8rem;
+    margin-bottom: 1.8rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+
+.code-block {
+    background: #0f172a;
+    color: #38bdf8;
+    font-family: 'Fira Code', monospace;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    overflow-x: auto;
+    margin: 12px 0;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    font-size: 0.9rem;
+}
+
+.styled-table th, .styled-table td {
+    padding: 10px 14px;
+    border: 1px solid #e2e8f0;
+    text-align: left;
+}
+
+.styled-table th {
+    background: #f1f5f9;
+    font-weight: 700;
+}
+
+.explain-list ul {
+    margin-left: 20px;
+    margin-top: 8px;
+}
+
+.explain-list li {
+    margin-bottom: 6px;
+}
+
+.note-box {
+    background: var(--purple-light);
+    border-left: 4px solid var(--purple-primary);
+    padding: 12px 16px;
+    border-radius: 0 10px 10px 0;
+    margin-top: 15px;
+    color: #4c1d95;
+    font-size: 0.9rem;
+}
+
+.note-box.warning {
+    background: #fef3c7;
+    border-left-color: var(--warning-color);
+    color: #92400e;
+}
+
+/* КНОПКИ */
+.btn {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    user-select: none;
+}
+
+.btn-lg { padding: 14px 28px; font-size: 1.05rem; }
+.btn-primary { background: var(--purple-primary); color: white; }
+.btn-primary:hover { background: var(--purple-hover); }
+.btn-secondary { background: #64748b; color: white; }
+.btn-secondary:hover { background: #475569; }
+.btn-mint { background: var(--teal-primary); color: white; }
+.btn-mint:hover { background: var(--teal-hover); }
+.btn-warning { background: var(--warning-color); color: white; }
+.btn-danger { background: var(--danger-color); color: white; }
+
+.page-nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+/* СИМУЛЯТОРИ (GUI MOCK) */
+.gui-window-mock {
+    background: #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #cbd5e1;
+    margin: 15px 0;
+}
+
+.gui-titlebar {
+    background: #cbd5e1;
+    padding: 8px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #334155;
+}
+
+.gui-controls .dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #94a3b8;
+    margin-left: 4px;
+}
+
+.gui-body {
+    background: #ffffff;
+    padding: 24px;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 15px 0;
+}
+
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.custom-checkbox input {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.sim-result-box {
+    background: #f1f5f9;
+    padding: 14px;
+    border-radius: 10px;
+    margin-top: 15px;
+    border-left: 4px solid var(--teal-primary);
+}
+
+.score-display-card {
+    background: var(--purple-light);
+    padding: 20px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+}
+
+.score-number {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--purple-primary);
+}
+
+.gui-btn-grid {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.sim-log-box {
+    margin-top: 15px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* ПРАКТИЧНІ ЗАВДАННЯ ТА ТЕСТ */
+.task-card {
+    position: relative;
+}
+
+.task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.task-score-badge {
+    background: #f1f5f9;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--purple-primary);
+}
+
+.options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.options-list.horizontal {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.option-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.match-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.match-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    background: #f8fafc;
+    padding: 10px 14px;
+    border-radius: 8px;
+}
+
+.match-select {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    font-family: inherit;
+}
+
+.input-inline {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.input-inline input {
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    font-size: 1rem;
+    width: 140px;
+}
+
+.check-action-bar {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.feedback-msg {
+    margin-top: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.feedback-msg.success { color: var(--success-color); }
+.feedback-msg.error { color: var(--danger-color); }
+
+/* ЗВІТ ТА ДРУК */
+.report-card {
+    background: white;
+    border: 2px solid var(--text-dark);
+    padding: 2.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+}
+
+.report-header {
+    text-align: center;
+    border-bottom: 2px solid var(--text-dark);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.school-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.report-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 10px;
+    margin-bottom: 20px;
+    background: #f8fafc;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.report-table th, .report-table td {
+    padding: 10px 14px;
+    border: 1px solid #0f172a;
+    text-align: left;
+}
+
+.report-table th { background: #e2e8f0; }
+
+.total-row {
+    font-weight: 800;
+    background: #f1f5f9;
+}
+
+.report-summary-box {
+    display: flex;
+    justify-content: space-around;
+    background: #f1f5f9;
+    padding: 18px;
+    border-radius: 10px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.metric-title { font-size: 0.9rem; color: var(--text-muted); display: block; }
+.metric-value { font-size: 1.4rem; font-weight: 800; }
+.grade-highlight { color: var(--purple-primary); font-size: 1.8rem; }
+
+.signatures-area {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px dashed #94a3b8;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.report-actions-bar {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.hidden { display: none !important; }
+
+/* ДРУК (PRINT MEDIA STYLES) */
+@media print {
+    .no-print, header, footer, .page-nav-buttons, .check-action-bar {
+        display: none !important;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+
+    .main-container {
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .page-block {
+        display: none !important;
+    }
+
+    #page8 {
+        display: block !important;
+    }
+
+    .report-card {
+        border: none;
+        padding: 0;
+        margin: 0;
+        box-shadow: none;
+    }
+
+    @page {
+        size: A4;
+        margin: 1.5cm;
+    }
+}
