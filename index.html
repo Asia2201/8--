@@ -1,0 +1,1947 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Використання перемикачів. Глобальні змінні в Python — 8 клас</title>
+  <style>
+:root {
+  --bg-page: #f1f5f9;
+  --surface: #ffffff;
+  --surface-soft: #f8fafc;
+  --purple: #6d28d9;
+  --purple-dark: #4c1d95;
+  --blue: #1d4ed8;
+  --teal: #0d9488;
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --border: #cbd5e1;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Inter, Roboto, Arial, sans-serif;
+  background: linear-gradient(135deg, #f5f3ff 0%, #eff6ff 52%, #f0fdfa 100%);
+  color: var(--text-main);
+  min-height: 100vh;
+}
+
+/* Верхня шапка профілю та метаданих */
+.topbar {
+  background: linear-gradient(90deg, #4c1d95 0%, #1d4ed8 55%, #0d9488 100%);
+  color: #ffffff;
+  padding: 12px 16px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.14);
+}
+
+.topbar-inner {
+  max-width: 1220px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.meta-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  font-size: 0.87rem;
+}
+
+.meta-pill {
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  padding: 4px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.meta-pill input {
+  width: 74px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.95);
+  color: #0f172a;
+  font-weight: 700;
+  font-size: 0.84rem;
+}
+
+/* Панель прогресу та поточного балу */
+.progress-strip {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+}
+
+.progress-inner {
+  max-width: 1220px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.progress-track {
+  flex: 1;
+  min-width: 200px;
+  height: 10px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--purple), var(--blue), var(--teal));
+  transition: width 0.3s ease;
+}
+
+/* Навігаційна панель розділів */
+.nav-bar {
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+
+.nav-inner {
+  max-width: 1220px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.nav-btn {
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: #1e293b;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.18s ease;
+}
+
+.nav-btn:hover {
+  border-color: var(--blue);
+  background: #eff6ff;
+}
+
+.nav-btn.active {
+  background: linear-gradient(90deg, var(--purple), var(--blue));
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 3px 10px rgba(76, 29, 149, 0.24);
+}
+
+.nav-btn.completed::after {
+  content: "✓";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: #ffffff;
+  font-size: 0.72rem;
+  margin-left: 2px;
+}
+
+/* Основний контейнер та сторінки */
+.container {
+  max-width: 1120px;
+  margin: 24px auto;
+  padding: 0 16px 44px;
+}
+
+.page-section {
+  display: none;
+  animation: fadeIn 0.2s ease;
+}
+
+.page-section.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+  margin-bottom: 18px;
+}
+
+.card-accent {
+  border-top: 4px solid var(--purple);
+}
+
+.card-teal {
+  border-top: 4px solid var(--teal);
+}
+
+.card-blue {
+  border-top: 4px solid var(--blue);
+}
+
+h1, h2, h3, h4 {
+  margin-top: 0;
+  color: #1e1b4b;
+}
+
+.badge-tag {
+  display: inline-block;
+  background: #ede9fe;
+  color: #5b21b6;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.84rem;
+  margin-bottom: 10px;
+}
+
+.btn {
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 11px 18px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform 0.12s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.2);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, var(--purple), var(--blue));
+  color: #ffffff;
+}
+
+.btn-teal {
+  background: linear-gradient(90deg, #0d9488, #0284c7);
+  color: #ffffff;
+}
+
+.btn-secondary {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.btn-outline {
+  background: #ffffff;
+  color: #1e3a8a;
+  border: 2px solid #93c5fd;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.field-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.92rem;
+  margin-bottom: 6px;
+  color: #334155;
+}
+
+.text-input, .select-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 0.96rem;
+  color: #0f172a;
+  background: #ffffff;
+}
+
+.text-input:focus, .select-input:focus {
+  outline: none;
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.14);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.info-box {
+  background: linear-gradient(135deg, #f5f3ff, #f0fdfa);
+  border: 1px solid #ddd6fe;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.info-box span {
+  font-size: 0.88rem;
+  color: #475569;
+}
+
+.info-box strong {
+  display: block;
+  font-size: 1.12rem;
+  color: var(--purple-dark);
+  margin-top: 4px;
+}
+
+.code-block {
+  background: #0f172a;
+  color: #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  overflow-x: auto;
+  margin: 12px 0;
+}
+
+.code-line-list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0;
+  display: grid;
+  gap: 8px;
+}
+
+.code-line-list li {
+  background: #f8fafc;
+  border-left: 4px solid var(--teal);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.92rem;
+}
+
+.rule-callout {
+  background: linear-gradient(90deg, #ede9fe, #ccfbf1);
+  border: 1.5px solid #8b5cf6;
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-weight: 600;
+  color: #1e1b4b;
+  margin: 14px 0;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 0.93rem;
+}
+
+.data-table th, .data-table td {
+  border: 1px solid #cbd5e1;
+  padding: 10px 12px;
+  text-align: left;
+}
+
+.data-table th {
+  background: #eef2ff;
+  color: #1e1b4b;
+}
+
+/* Вікна симуляторів */
+.sim-window {
+  border: 2px solid #94a3b8;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.sim-titlebar {
+  background: linear-gradient(90deg, #1d4ed8, #0d9488);
+  color: #ffffff;
+  padding: 8px 14px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sim-body {
+  padding: 18px;
+}
+
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  background: #f8fafc;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.check-item:hover {
+  border-color: #a78bfa;
+  background: #f5f3ff;
+}
+
+.check-item input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--purple);
+}
+
+.counter-display {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--purple);
+  text-align: center;
+  padding: 16px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #f5f3ff, #ecfeff);
+  border: 2px solid #c4b5fd;
+  margin-bottom: 14px;
+}
+
+.option-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  background: #ffffff;
+}
+
+.option-label:hover {
+  background: #f5f3ff;
+  border-color: var(--purple);
+}
+
+.feedback {
+  margin-top: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.feedback.ok {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #86efac;
+}
+
+.feedback.err {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+}
+
+.feedback.info {
+  background: #e0f2fe;
+  color: #075985;
+  border: 1px solid #7dd3fc;
+}
+
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #cbd5e1;
+}
+
+.report-header {
+  text-align: center;
+  border-bottom: 2px solid #1e1b4b;
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+}
+
+.signatures {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 32px;
+  padding-top: 16px;
+}
+
+.sig-line {
+  border-bottom: 1px solid #0f172a;
+  height: 28px;
+  margin-bottom: 6px;
+}
+
+@media (max-width: 640px) {
+  .signatures {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 14mm;
+  }
+
+  body {
+    background: #ffffff !important;
+  }
+
+  .topbar,
+  .progress-strip,
+  .nav-bar,
+  .footer-nav,
+  .no-print {
+    display: none !important;
+  }
+
+  .container {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .page-section {
+    display: none !important;
+  }
+
+  #page-report {
+    display: block !important;
+  }
+
+  .card {
+    box-shadow: none !important;
+    border: 1px solid #94a3b8 !important;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="meta-badges">
+        <span class="meta-pill">🎓 <strong>Клас:</strong> 8</span>
+        <span class="meta-pill">💻 <strong>Предмет:</strong> Інформатика</span>
+        <span class="meta-pill">📘 <strong>Тема:</strong> «Використання перемикачів. Глобальні змінні в Python»</span>
+      </div>
+      <div class="meta-badges">
+        <span class="meta-pill">👤 <strong>Учень:</strong> <span id="hdr-student-name">Не вказано</span></span>
+        <label class="meta-pill" for="hdr-student-class">🏫 <strong>Клас:</strong>
+          <input id="hdr-student-class" type="text" placeholder="8-А" maxlength="10" />
+        </label>
+      </div>
+    </div>
+  </header>
+
+  <div class="progress-strip">
+    <div class="progress-inner">
+      <div style="font-size:0.9rem; font-weight:700; color:#1e1b4b;">
+        📊 Проходження роботи: <span id="progress-percent">0%</span> (<span id="completed-count">0</span>/8 розділів)
+      </div>
+      <div class="progress-track">
+        <div id="progress-fill" class="progress-fill"></div>
+      </div>
+      <div style="font-size:0.95rem; font-weight:800; color:#0d9488;">
+        🏆 Поточний результат: <span id="live-score">0</span> / 36 балів
+      </div>
+    </div>
+  </div>
+
+  <nav class="nav-bar" aria-label="Навігація по розділах">
+    <div class="nav-inner" id="top-nav">
+      <button type="button" class="nav-btn active" data-page="start">🏠 1. Старт роботи</button>
+      <button type="button" class="nav-btn" data-page="theory">📖 2. Теоретичний блок</button>
+      <button type="button" class="nav-btn" data-page="sim1">☑️ 3. Симулятор №1</button>
+      <button type="button" class="nav-btn" data-page="sim2">🌐 4. Симулятор №2</button>
+      <button type="button" class="nav-btn" data-page="prac1">🛠️ 5. Практична №1</button>
+      <button type="button" class="nav-btn" data-page="prac2">⚙️ 6. Практична №2</button>
+      <button type="button" class="nav-btn" data-page="test">📝 7. Підсумковий тест</button>
+      <button type="button" class="nav-btn" data-page="report">📄 8. Результати та звіт</button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <!-- 1. СТАРТ РОБОТИ -->
+    <section id="page-start" class="page-section active">
+      <div class="card card-accent">
+        <span class="badge-tag">Інтерактивний навчальний практикум</span>
+        <h1>Практична робота з інформатики. 8 клас</h1>
+        <h2 style="color:#0d9488; font-size:1.22rem;">Тема: «Використання перемикачів. Глобальні змінні в Python»</h2>
+
+        <div class="info-grid">
+          <div class="info-box">
+            <span>🎯 Загальна кількість балів</span>
+            <strong>36 балів</strong>
+          </div>
+          <div class="info-box">
+            <span>🧩 Кількість завдань</span>
+            <strong>18 завдань (2 симулятори + 2 практикуми + 8 тестів)</strong>
+          </div>
+          <div class="info-box">
+            <span>⏱️ Орієнтовний час виконання</span>
+            <strong>35–45 хвилин</strong>
+          </div>
+          <div class="info-box">
+            <span>📜 Підсумок роботи</span>
+            <strong>Автоматичний звіт та оцінка за 12-бальною шкалою</strong>
+          </div>
+        </div>
+
+        <p style="color:#475569; line-height:1.55;">
+          Введіть своє прізвище, ім'я та клас один раз нижче. Після цього відкриється доступ до всіх розділів практикуму, а ваші відповіді й бали автоматично зберігатимуться.
+        </p>
+
+        <div class="form-grid">
+          <div>
+            <label class="field-label" for="start-lastname">Прізвище *</label>
+            <input id="start-lastname" class="text-input" type="text" placeholder="Наприклад: Коваленко" />
+          </div>
+          <div>
+            <label class="field-label" for="start-firstname">Ім'я *</label>
+            <input id="start-firstname" class="text-input" type="text" placeholder="Наприклад: Артем" />
+          </div>
+          <div>
+            <label class="field-label" for="start-class">Клас *</label>
+            <input id="start-class" class="text-input" type="text" placeholder="Наприклад: 8-А" />
+          </div>
+        </div>
+
+        <div id="start-error" class="feedback err" style="display:none; margin-bottom:14px;"></div>
+
+        <button type="button" id="btn-start-work" class="btn btn-primary" style="font-size:1.05rem; padding:14px 28px;">
+          🚀 Розпочати роботу
+        </button>
+      </div>
+    </section>
+
+    <!-- 2. ТЕОРЕТИЧНИЙ БЛОК -->
+    <section id="page-theory" class="page-section">
+      <div class="card card-accent">
+        <h2>📖 Теоретичний блок (конспект із теми)</h2>
+        <p style="color:#475569;">Ознайомтеся з теоретичним матеріалом. Теоретичний блок є навчальним (0 балів), але знання з нього знадобляться для виконання симуляторів, практичних завдань і тесту.</p>
+      </div>
+
+      <div class="card card-blue">
+        <h3>Розділ А. Перемикачі в Python (Checkbutton)</h3>
+        <ul style="line-height:1.65; color:#1e293b;">
+          <li><strong>Що таке перемикачі?</strong> Перемикач (прапорець) — це елемент графічного інтерфейсу користувача, який може перебувати у двох станах: <em>увімкнений</em> (позначений галочкою) або <em>вимкнений</em>.</li>
+          <li><strong>Для чого використовують Checkbutton?</strong> Віджет <code>Checkbutton</code> бібліотеки <code>tkinter</code> застосовують тоді, коли користувачеві потрібно обрати один або декілька незалежних пунктів зі списку.</li>
+          <li><strong>Чим перемикачі відрізняються від звичайних кнопок?</strong> Звичайна кнопка (<code>Button</code>) лише запускає дію під час натискання і не зберігає стан вибору. Перемикач (<code>Checkbutton</code>) фіксує стан (0 або 1), який можна зчитати у будь-який момент.</li>
+          <li><strong>Як створювати та отримувати значення?</strong> Для збереження стану створюють спеціальну цілочисельну змінну <code>IntVar()</code>, прив'язують її параметром <code>variable</code>, а поточне значення отримують методом <code>.get()</code>.</li>
+        </ul>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Властивість / елемент</th>
+              <th>Звичайна кнопка (<code>Button</code>)</th>
+              <th>Перемикач (<code>Checkbutton</code>)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Збереження стану вибору</td>
+              <td>Не зберігає (спрацьовує в момент кліку)</td>
+              <td>Зберігає стан у змінній <code>IntVar()</code> (<code>1</code> або <code>0</code>)</td>
+            </tr>
+            <tr>
+              <td>Вибір кількох пунктів</td>
+              <td>Не призначена для множинного вибору</td>
+              <td>Дозволяє одночасно обрати кілька прапорців</td>
+            </tr>
+            <tr>
+              <td>Приклад із життя</td>
+              <td>Дзвінок біля дверей</td>
+              <td>Вимикач світла або список покупок із галочками</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>Приклад коду створення перемикача у Tkinter:</h4>
+        <pre class="code-block">from tkinter import *
+
+root = Tk()
+root.title("Мої вподобання")
+
+var1 = IntVar()
+
+check = Checkbutton(
+    root,
+    text="Я люблю програмувати",
+    variable=var1
+)
+check.pack()
+
+root.mainloop()</pre>
+
+        <h4>Покрокове пояснення кожного рядка коду:</h4>
+        <ul class="code-line-list">
+          <li><code>from tkinter import *</code> — імпортує всі класи та функції бібліотеки Tkinter для створення віконного інтерфейсу.</li>
+          <li><code>root = Tk()</code> — створює головне вікно програми.</li>
+          <li><code>root.title("Мої вподобання")</code> — встановлює заголовок вікна.</li>
+          <li><code>var1 = IntVar()</code> — створює спеціальну змінну керування для збереження цілого значення (<code>1</code> або <code>0</code>).</li>
+          <li><code>check = Checkbutton(root, text="Я люблю програмувати", variable=var1)</code> — створює перемикач у вікні <code>root</code> із написом та пов'язує його зі змінною <code>var1</code> через параметр <code>variable</code>.</li>
+          <li><code>check.pack()</code> — розміщує перемикач у вікні програми.</li>
+          <li><code>root.mainloop()</code> — запускає головний цикл обробки подій вікна.</li>
+        </ul>
+
+        <div class="rule-callout">
+          💡 Запам'ятайте: <code>IntVar()</code> зберігає ціле число. Значення <code>1</code> означає, що перемикач <strong>увімкнений</strong>, а значення <code>0</code> — що перемикач <strong>вимкнений</strong>. Отримати це число можна викликом <code>var1.get()</code>.
+        </div>
+      </div>
+
+      <div class="card card-teal">
+        <h3>Розділ Б. Глобальні змінні в Python</h3>
+        <ul style="line-height:1.65; color:#1e293b;">
+          <li><strong>Що таке змінна?</strong> Іменована область пам'яті комп'ютера, у якій зберігаються дані під час виконання програми.</li>
+          <li><strong>Що таке локальна змінна?</strong> Змінна, створена всередині функції. Вона існує лише під час роботи цієї функції і недоступна за її межами.</li>
+          <li><strong>Що таке глобальна змінна?</strong> Змінна, створена в основній частині програми (поза функціями). Її значення бачать усі функції програми.</li>
+          <li><strong>Для чого використовують команду <code>global</code>?</strong> Якщо всередині функції потрібно не просто прочитати, а <em>змінити</em> значення глобальної змінної, її обов'язково потрібно оголосити командою <code>global ім_я_змінної</code>.</li>
+        </ul>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Критерій</th>
+              <th>Локальна змінна</th>
+              <th>Глобальна змінна</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Де створюється</td>
+              <td>Усередині функції (<code>def ...</code>)</td>
+              <td>У головному коді програми (поза функціями)</td>
+            </tr>
+            <tr>
+              <td>Де доступна</td>
+              <td>Лише всередині своєї функції</td>
+              <td>У всій програмі та в усіх функціях</td>
+            </tr>
+            <tr>
+              <td>Як змінити у функції</td>
+              <td>Звичайним присвоєнням <code>x = 5</code></td>
+              <td>Спочатку оголосити <code>global x</code>, потім змінювати</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>Приклад роботи з глобальною змінною:</h4>
+        <pre class="code-block">score = 0
+
+def add_point():
+    global score
+    score = score + 1
+
+add_point()
+print(score)</pre>
+
+        <ul class="code-line-list">
+          <li><code>score = 0</code> — створює глобальну змінну <code>score</code> зі стартовим значенням <code>0</code> у головній частині програми.</li>
+          <li><code>def add_point():</code> — оголошує функцію <code>add_point</code> для нарахування бала.</li>
+          <li><code>global score</code> — повідомляє Python, що всередині функції буде змінюватися саме глобальна змінна <code>score</code>, а не створюватися нова локальна.</li>
+          <li><code>score = score + 1</code> — збільшує значення глобальної змінної <code>score</code> на 1.</li>
+          <li><code>add_point()</code> — викликає функцію (після цього <code>score</code> дорівнює <code>1</code>).</li>
+          <li><code>print(score)</code> — виводить на екран число <code>1</code>.</li>
+        </ul>
+
+        <div class="rule-callout">
+          ⚠️ Головне правило: якщо функція повинна змінювати глобальну змінну, потрібно обов'язково оголосити її всередині функції за допомогою ключового слова <code>global</code>!
+        </div>
+      </div>
+
+      <div class="footer-nav">
+        <button type="button" class="btn btn-secondary" data-nav="start">⬅️ Назад</button>
+        <button type="button" class="btn btn-outline" data-nav="start">🏠 На головну</button>
+        <button type="button" class="btn btn-primary" data-nav="sim1">Далі ➡️</button>
+      </div>
+    </section>
+
+    <!-- 3. СИМУЛЯТОР №1 -->
+    <section id="page-sim1" class="page-section">
+      <div class="card card-accent">
+        <h2>☑️ Симулятор №1 — Використання перемикачів (Checkbutton)</h2>
+        <p style="color:#475569;">
+          Контрольна умова (<strong>+2 бали</strong>): увімкніть хоча б <strong>2 перемикачі</strong> та натисніть кнопку <strong>«Перевірити»</strong>. Запам'ятайте кількість обраних прапорців — вона знадобиться у Завданні 4 Практичної частини №1!
+        </p>
+
+        <div class="sim-window">
+          <div class="sim-titlebar">
+            <span>🪟 Python Tkinter — Мої вподобання</span>
+            <span>IntVar() монітор</span>
+          </div>
+          <div class="sim-body">
+            <div id="sim1-checkboxes"></div>
+
+            <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:14px;">
+              <button type="button" id="sim1-check-btn" class="btn btn-primary">✅ Перевірити</button>
+              <button type="button" id="sim1-clear-btn" class="btn btn-secondary">🧹 Очистити вибір</button>
+            </div>
+
+            <div id="sim1-output" class="feedback info" style="margin-top:14px;">
+              Оберіть перемикачі вище та натисніть «Перевірити», щоб побачити результат обробки.
+            </div>
+            <div id="sim1-bonus-status" style="margin-top:8px; font-weight:700; color:#0d9488;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-blue">
+        <h3>🐍 Як аналогічна логіка реалізується у Python (Checkbutton + IntVar):</h3>
+        <pre class="code-block" id="sim1-live-code"></pre>
+      </div>
+
+      <div class="footer-nav">
+        <button type="button" class="btn btn-secondary" data-nav="theory">⬅️ Назад</button>
+        <button type="button" class="btn btn-outline" data-nav="start">🏠 На головну</button>
+        <button type="button" class="btn btn-primary" data-nav="sim2">Далі ➡️</button>
+      </div>
+    </section>
+
+    <!-- 4. СИМУЛЯТОР №2 -->
+    <section id="page-sim2" class="page-section">
+      <div class="card card-teal">
+        <h2>🌐 Симулятор №2 — Глобальні змінні («Лічильник балів»)</h2>
+        <p style="color:#475569;">
+          Контрольна умова (<strong>+2 бали</strong>): випробуйте різні кнопки зміни рахунку та встановіть значення глобальної змінної <code>score = 10</code> (це також допоможе виконати Завдання 4 Практичної частини №2).
+        </p>
+
+        <div class="sim-window">
+          <div class="sim-titlebar">
+            <span>🪟 Python Global State — Лічильник балів</span>
+            <span>Глобальна змінна: score</span>
+          </div>
+          <div class="sim-body">
+            <div class="counter-display">
+              score = <span id="sim2-score-val">0</span>
+            </div>
+
+            <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center;">
+              <button type="button" id="sim2-add1" class="btn btn-primary">➕ Додати 1 бал</button>
+              <button type="button" id="sim2-add5" class="btn btn-teal">➕ Додати 5 балів</button>
+              <button type="button" id="sim2-sub1" class="btn btn-outline">➖ Відняти 1 бал</button>
+              <button type="button" id="sim2-reset" class="btn btn-secondary">🔄 Скинути</button>
+            </div>
+
+            <div id="sim2-action-log" class="feedback info" style="margin-top:14px;">
+              Початкове значення глобальної змінної: <strong>score = 0</strong>. Натискайте кнопки вище.
+            </div>
+            <div id="sim2-bonus-status" style="margin-top:8px; font-weight:700; color:#0d9488;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-accent">
+        <h3>🐍 Відповідний код Python із використанням <code>global</code>:</h3>
+        <pre class="code-block" id="sim2-live-code"></pre>
+        <div class="rule-callout">
+          ℹ️ Пояснення: змінна <code>score</code> оголошена поза функціями, тому вона зберігає <strong>спільне значення</strong> для всієї програми. Кожна функція (<code>add_1()</code>, <code>add_5()</code>, <code>sub_1()</code>, <code>reset_score()</code>) використовує <code>global score</code>, щоб змінювати саме цю спільну змінну.
+        </div>
+      </div>
+
+      <div class="footer-nav">
+        <button type="button" class="btn btn-secondary" data-nav="sim1">⬅️ Назад</button>
+        <button type="button" class="btn btn-outline" data-nav="start">🏠 На головну</button>
+        <button type="button" class="btn btn-primary" data-nav="prac1">Далі ➡️</button>
+      </div>
+    </section>
+
+    <!-- 5. ПРАКТИЧНА ЧАСТИНА №1 -->
+    <section id="page-prac1" class="page-section">
+      <div class="card card-accent">
+        <h2>🛠️ Практична частина №1 — «Створення програми з перемикачами»</h2>
+        <p style="color:#475569;">Максимальна кількість балів: <strong>8 балів</strong> (4 завдання по 2 бали). Кожне завдання зараховується один раз при правильній відповіді.</p>
+      </div>
+      <div id="prac1-container"></div>
+
+      <div class="footer-nav">
+        <button type="button" class="btn btn-secondary" data-nav="sim2">⬅️ Назад</button>
+        <button type="button" class="btn btn-outline" data-nav="start">🏠 На головну</button>
+        <button type="button" class="btn btn-primary" data-nav="prac2">Далі ➡️</button>
+      </div>
+    </section>
+
+    <!-- 6. ПРАКТИЧНА ЧАСТИНА №2 -->
+    <section id="page-prac2" class="page-section">
+      <div class="card card-teal">
+        <h2>⚙️ Практична частина №2 — «Використання глобальних змінних»</h2>
+        <p style="color:#475569;">Максимальна кількість балів: <strong>8 балів</strong> (4 завдання по 2 бали). Кожне завдання зараховується один раз при правильній відповіді.</p>
+      </div>
+      <div id="prac2-container"></div>
+
+      <div class="footer-nav">
+        <button type="button" class="btn btn-secondary" data-nav="prac1">⬅️ Назад</button>
+        <button type="button" class="btn btn-outline" data-nav="start">🏠 На головну</button>
+        <button type="button" class="btn btn-primary" data-nav="test">Далі ➡️</button>
+      </div>
+    </section>
+
+    <!-- 7. ПІДСУМКОВИЙ ТЕСТ -->
+    <section id="page-test" class="page-section">
+      <div class="card card-blue">
+        <h2>📝 Підсумковий тест із теми</h2>
+        <p style="color:#475569;">Максимальна кількість балів: <strong>16 балів</strong> (8 запитань по 2 бали). Повторне нарахування балів за вже зараховане запитання заблоковане.</p>
+      </div>
+      <div id="test-container"></div>
+
+      <div class="footer-nav">
+        <button type="button" class="btn btn-secondary" data-nav="prac2">⬅️ Назад</button>
+        <button type="button" class="btn btn-outline" data-nav="start">🏠 На головну</button>
+        <button type="button" class="btn btn-primary" data-nav="report">Далі до звіту ➡️</button>
+      </div>
+    </section>
+
+    <!-- 8. РЕЗУЛЬТАТИ ТА ЗВІТ -->
+    <section id="page-report" class="page-section">
+      <div class="card" id="report-sheet">
+        <div class="report-header">
+          <div style="font-weight:700; font-size:1.05rem; color:#1e1b4b;">
+            КЗ «Ліцей "Інтелект" Долинської міської ради»
+          </div>
+          <h2 style="margin:8px 0 4px;">Звіт про виконання практичної роботи</h2>
+          <div style="color:#334155; font-size:0.95rem;">
+            <strong>Предмет:</strong> Інформатика &nbsp;|&nbsp; <strong>Клас:</strong> <span id="rep-class-top">8</span>
+          </div>
+          <div style="color:#0f172a; font-weight:600; margin-top:4px;">
+            Тема: «Використання перемикачів. Глобальні змінні в Python»
+          </div>
+        </div>
+
+        <div class="info-grid">
+          <div class="info-box">
+            <span>👤 ПІБ учня</span>
+            <strong id="rep-student-fullname">—</strong>
+          </div>
+          <div class="info-box">
+            <span>🏫 Клас</span>
+            <strong id="rep-student-class">—</strong>
+          </div>
+          <div class="info-box">
+            <span>📅 Дата виконання</span>
+            <strong id="rep-date">—</strong>
+          </div>
+          <div class="info-box">
+            <span>📌 Статус виконання</span>
+            <strong id="rep-status">—</strong>
+          </div>
+        </div>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Розділ роботи</th>
+              <th>Набрані бали</th>
+              <th>Максимум</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Теоретичний блок</td>
+              <td>0</td>
+              <td>0 балів</td>
+            </tr>
+            <tr>
+              <td>Симулятор №1 (базовий блок)</td>
+              <td>0</td>
+              <td>0 балів</td>
+            </tr>
+            <tr>
+              <td>Симулятор №2 (базовий блок)</td>
+              <td>0</td>
+              <td>0 балів</td>
+            </tr>
+            <tr>
+              <td>Практична частина №1 («Створення програми з перемикачами»)</td>
+              <td id="rep-prac1">0</td>
+              <td>8 балів</td>
+            </tr>
+            <tr>
+              <td>Практична частина №2 («Використання глобальних змінних»)</td>
+              <td id="rep-prac2">0</td>
+              <td>8 балів</td>
+            </tr>
+            <tr>
+              <td>Підсумковий тест</td>
+              <td id="rep-test">0</td>
+              <td>16 балів</td>
+            </tr>
+            <tr>
+              <td>Додаткові практичні контрольні завдання (Симулятор №1: <span id="rep-s1">0</span>/2, Симулятор №2: <span id="rep-s2">0</span>/2)</td>
+              <td id="rep-bonus">0</td>
+              <td>4 бали</td>
+            </tr>
+            <tr style="background:#eef2ff; font-weight:800;">
+              <td>УСЬОГО</td>
+              <td id="rep-total">0</td>
+              <td>36 балів</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="info-grid">
+          <div class="info-box">
+            <span>🎯 Набрано балів</span>
+            <strong><span id="rep-total-box">0</span> / 36</strong>
+          </div>
+          <div class="info-box">
+            <span>📈 Відсоток виконання</span>
+            <strong id="rep-percent">0%</strong>
+          </div>
+          <div class="info-box" style="border-color:#0d9488; background:linear-gradient(135deg,#ecfeff,#f5f3ff);">
+            <span>🏅 Оцінка за 12-бальною шкалою</span>
+            <strong style="font-size:1.45rem; color:#0d9488;"><span id="rep-grade12">0</span> / 12</strong>
+          </div>
+        </div>
+
+        <div class="signatures">
+          <div>
+            <div class="sig-line"></div>
+            <div style="font-size:0.88rem; color:#475569;">Підпис учня (<span id="rep-sig-student"></span>)</div>
+          </div>
+          <div>
+            <div class="sig-line"></div>
+            <div style="font-size:0.88rem; color:#475569;">Підпис вчителя інформатики</div>
+          </div>
+        </div>
+
+        <div class="no-print" style="display:flex; flex-wrap:wrap; gap:12px; margin-top:24px;">
+          <button type="button" id="btn-print-report" class="btn btn-primary">🖨️ Друкувати звіт / Зберегти у PDF</button>
+          <button type="button" id="btn-reset-all" class="btn btn-secondary">🔄 Скинути всі результати для нової спроби</button>
+        </div>
+      </div>
+
+      <div class="footer-nav">
+        <button type="button" class="btn btn-secondary" data-nav="test">⬅️ Назад</button>
+        <button type="button" class="btn btn-outline" data-nav="start">🏠 На головну</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+window.COURSE_DATA = {
+  preferences: [
+    { id: "p1", label: "Мені подобається програмування", varName: "var_prog" },
+    { id: "p2", label: "Я люблю математику", varName: "var_math" },
+    { id: "p3", label: "Я цікавлюся комп'ютерними іграми", varName: "var_games" },
+    { id: "p4", label: "Я люблю читати", varName: "var_read" },
+    { id: "p5", label: "Я хочу створювати власні програми", varName: "var_apps" }
+  ],
+  practice1: [
+    {
+      id: "pr1_q1",
+      type: "single",
+      points: 2,
+      question: "Завдання 1. Обери правильну відповідь: Який елемент Tkinter створює перемикач?",
+      options: ["Entry", "Checkbutton", "Label", "Button"],
+      correct: 1
+    },
+    {
+      id: "pr1_q2",
+      type: "select_code",
+      points: 2,
+      question: "Завдання 2. Встав пропущене слово в коді:",
+      codeBefore: "var1 = ",
+      codeAfter: "()\n\ncheck = Checkbutton(\n    root,\n    text=\"Навчання\",\n    variable=var1\n)",
+      options: ["IntVar", "Label", "Button"],
+      correct: "IntVar"
+    },
+    {
+      id: "pr1_q3",
+      type: "matching",
+      points: 2,
+      question: "Завдання 3. Встанови відповідність між елементом та його призначенням:",
+      pairs: [
+        { left: "Checkbutton", right: "створює перемикач" },
+        { left: "IntVar()", right: "зберігає ціле значення" },
+        { left: "variable", right: "пов'язує перемикач зі змінною" },
+        { left: "get()", right: "отримує значення змінної" }
+      ],
+      rightOptions: [
+        "створює перемикач",
+        "зберігає ціле значення",
+        "пов'язує перемикач зі змінною",
+        "отримує значення змінної"
+      ]
+    },
+    {
+      id: "pr1_q4",
+      type: "sim1_count",
+      points: 2,
+      question: "Завдання 4. Практичне завдання: перейдіть у Симулятор №1, увімкніть бажану кількість перемикачів (від 1 до 5), натисніть «Перевірити», а потім введіть у поле нижче точну кількість увімкнених зараз перемикачів:"
+    }
+  ],
+  practice2: [
+    {
+      id: "pr2_q1",
+      type: "single",
+      points: 2,
+      question: "Завдання 1. Обери правильну відповідь: Яке ключове слово використовується для зміни глобальної змінної всередині функції?",
+      options: ["local", "global", "def", "int"],
+      correct: 1
+    },
+    {
+      id: "pr2_q2",
+      type: "input_word",
+      points: 2,
+      question: "Завдання 2. Доповни код (впиши пропущене ключове слово):",
+      codeSnippet: "score = 10\n\ndef change_score():\n    ______ score\n    score = score + 5",
+      correct: "global"
+    },
+    {
+      id: "pr2_q3",
+      type: "input_number",
+      points: 2,
+      question: "Завдання 3. Визнач результат виконання коду (впиши число, яке виведе програма):",
+      codeSnippet: "number = 4\n\ndef change():\n    global number\n    number = number * 2\n\nchange()\nprint(number)",
+      correct: 8
+    },
+    {
+      id: "pr2_q4",
+      type: "sim2_target",
+      points: 2,
+      question: "Завдання 4. Практичне завдання: за допомогою кнопок Симулятора №2 змініть значення лічильника глобальної змінної так, щоб воно дорівнювало 10, а потім введіть отримане значення у поле відповіді нижче:"
+    }
+  ],
+  finalTest: [
+    {
+      id: "ft_1",
+      points: 2,
+      question: "1. Які два значення за замовчуванням повертає змінна IntVar(), пов'язана з віджетом Checkbutton?",
+      options: ["True або False у вигляді тексту", "1 (увімкнено) або 0 (вимкнено)", "10 або 20", "-1 або 1"],
+      correct: 1,
+      explanation: "Змінна типу IntVar() для Checkbutton набуває значення 1, коли прапорець встановлено, та 0, коли знято."
+    },
+    {
+      id: "ft_2",
+      points: 2,
+      question: "2. За допомогою якого параметра віджета Checkbutton встановлюється зв'язок зі змінною стану?",
+      options: ["command", "textvariable", "variable", "value"],
+      correct: 2,
+      explanation: "Параметр variable=var1 пов'язує стан перемикача зі змінною керування IntVar()."
+    },
+    {
+      id: "ft_3",
+      points: 2,
+      question: "3. Як зчитати поточне значення зі змінної flag = IntVar()?",
+      options: ["flag.read()", "flag.get()", "flag.text()", "get(flag)"],
+      correct: 1,
+      explanation: "Метод .get() повертає поточне ціле число (0 або 1), збережене у змінній IntVar()."
+    },
+    {
+      id: "ft_4",
+      points: 2,
+      question: "4. У чому полягає головна відмінність перемикача Checkbutton від звичайної кнопки Button?",
+      options: [
+        "Checkbutton не можна розмістити у вікні Tk()",
+        "Button зберігає стан 0 або 1, а Checkbutton — ні",
+        "Checkbutton зберігає стан вибору (увімкнено/вимкнено) і дозволяє обирати кілька варіантів одночасно",
+        "Checkbutton працює лише без бібліотеки tkinter"
+      ],
+      correct: 2,
+      explanation: "Перемикач фіксує стан прапорця, тоді як звичайна кнопка лише запускає дію в момент натискання."
+    },
+    {
+      id: "ft_5",
+      points: 2,
+      question: "5. Де оголошується глобальна змінна у програмі на мові Python?",
+      options: [
+        "У основному тілі програми (поза межами функцій)",
+        "Тільки всередині циклу while",
+        "Тільки після команди return",
+        "У назві вікна root.title()"
+      ],
+      correct: 0,
+      explanation: "Змінна, створена на верхньому рівні модуля поза функціями, є глобальною."
+    },
+    {
+      id: "ft_6",
+      points: 2,
+      question: "6. Що станеться, якщо всередині функції спробувати змінити глобальну змінну x = x + 1 без оголошення global x?",
+      options: [
+        "Програма автоматично створить новий файл",
+        "Виникне помилка UnboundLocalError (звернення до локальної змінної до її присвоєння)",
+        "Змінна x обнулиться без помилок",
+        "Функція виконається двічі"
+      ],
+      correct: 1,
+      explanation: "Без ключового слова global Python вважає x локальною змінною функції та видає помилку UnboundLocalError."
+    },
+    {
+      id: "ft_7",
+      points: 2,
+      question: "7. Проаналізуйте фрагмент коду. Що буде виведено на екран?\n\npoints = 3\ndef bonus():\n    global points\n    points += 4\n\nbonus()\nbonus()\nprint(points)",
+      options: ["3", "7", "11", "8"],
+      correct: 2,
+      explanation: "Початкове значення 3. Перший виклик bonus() робить points = 7, другий виклик — points = 11."
+    },
+    {
+      id: "ft_8",
+      points: 2,
+      question: "8. У програмі створено 3 перемикачі: v1.get() == 1, v2.get() == 0, v3.get() == 1. Чому дорівнює вираз v1.get() + v2.get() + v3.get()?",
+      options: ["1", "2", "3", "101"],
+      correct: 1,
+      explanation: "Оскільки значення мають цілий тип (IntVar), їх сума дорівнює 1 + 0 + 1 = 2."
+    }
+  ]
+};
+
+  </script>
+  <script>
+(function () {
+  const STORAGE_KEY = "python_switches_globals_8grade_v2_state";
+  const PAGES = ["start", "theory", "sim1", "sim2", "prac1", "prac2", "test", "report"];
+
+  let state = loadState();
+
+  function getDefaultState() {
+    return {
+      student: { lastName: "", firstName: "", className: "" },
+      started: false,
+      currentPage: "start",
+      completedPages: {},
+      sim1: { checked: { p1: false, p2: false, p3: false, p4: false, p5: false }, checkedOnce: false, bonusAwarded: false },
+      sim2: { score: 0, lastAction: "init", bonusAwarded: false },
+      prac1: { solved: {}, userAnswers: {} },
+      prac2: { solved: {}, userAnswers: {} },
+      test: { solved: {}, userAnswers: {}, attempts: {} }
+    };
+  }
+
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return getDefaultState();
+      const parsed = JSON.parse(raw);
+      return Object.assign(getDefaultState(), parsed);
+    } catch (_) {
+      return getDefaultState();
+    }
+  }
+
+  function saveState() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (_) {}
+    updateHeaderAndProgress();
+  }
+
+  function isStudentRegistered() {
+    return Boolean(
+      state.started &&
+      state.student.lastName && state.student.lastName.trim().length > 0 &&
+      state.student.firstName && state.student.firstName.trim().length > 0 &&
+      state.student.className && state.student.className.trim().length > 0
+    );
+  }
+
+  function calculateTotalBreakdown() {
+    const p1Score = Object.values(state.prac1.solved).filter(Boolean).length * 2;
+    const p2Score = Object.values(state.prac2.solved).filter(Boolean).length * 2;
+    const testScore = Object.values(state.test.solved).filter(Boolean).length * 2;
+    const s1Bonus = state.sim1.bonusAwarded ? 2 : 0;
+    const s2Bonus = state.sim2.bonusAwarded ? 2 : 0;
+    const bonusTotal = s1Bonus + s2Bonus;
+    const total = Math.min(36, p1Score + p2Score + testScore + bonusTotal);
+    const percent = Math.round((total / 36) * 100);
+    const grade12 = Math.round((total / 36) * 12);
+    return { p1Score, p2Score, testScore, s1Bonus, s2Bonus, bonusTotal, total, percent, grade12 };
+  }
+
+  function updateHeaderAndProgress() {
+    const nameEl = document.getElementById("hdr-student-name");
+    const classInput = document.getElementById("hdr-student-class");
+    const fullName = `${state.student.lastName || ""} ${state.student.firstName || ""}`.trim();
+    if (nameEl) nameEl.textContent = fullName || "Не вказано";
+    if (classInput && document.activeElement !== classInput) {
+      classInput.value = state.student.className || "";
+    }
+
+    const breakdown = calculateTotalBreakdown();
+    const liveScoreEl = document.getElementById("live-score");
+    if (liveScoreEl) liveScoreEl.textContent = String(breakdown.total);
+
+    if (Object.keys(state.prac1.solved).filter((k) => state.prac1.solved[k]).length === 4) {
+      state.completedPages.prac1 = true;
+    }
+    if (Object.keys(state.prac2.solved).filter((k) => state.prac2.solved[k]).length === 4) {
+      state.completedPages.prac2 = true;
+    }
+    if (Object.keys(state.test.solved).filter((k) => state.test.solved[k]).length === 8) {
+      state.completedPages.test = true;
+    }
+
+    const doneCount = PAGES.filter((p) => Boolean(state.completedPages[p])).length;
+    const pct = Math.round((doneCount / PAGES.length) * 100);
+    const pctEl = document.getElementById("progress-percent");
+    const cntEl = document.getElementById("completed-count");
+    const fillEl = document.getElementById("progress-fill");
+    if (pctEl) pctEl.textContent = pct + "%";
+    if (cntEl) cntEl.textContent = String(doneCount);
+    if (fillEl) fillEl.style.width = pct + "%";
+
+    document.querySelectorAll("#top-nav .nav-btn").forEach((btn) => {
+      const p = btn.getAttribute("data-page");
+      btn.classList.toggle("active", p === state.currentPage);
+      btn.classList.toggle("completed", Boolean(state.completedPages[p]));
+    });
+  }
+
+  function navigateTo(pageId) {
+    if (pageId !== "start" && !isStudentRegistered()) {
+      const err = document.getElementById("start-error");
+      if (err) {
+        err.textContent = "Спочатку введіть Прізвище, Ім'я та Клас і натисніть «Розпочати роботу».";
+        err.style.display = "block";
+      }
+      pageId = "start";
+    }
+
+    if (pageId === "theory") state.completedPages.theory = true;
+    if (pageId === "report") state.completedPages.report = true;
+
+    state.currentPage = pageId;
+    document.querySelectorAll(".page-section").forEach((sec) => {
+      sec.classList.toggle("active", sec.id === "page-" + pageId);
+    });
+
+    if (pageId === "sim1") renderSim1();
+    if (pageId === "sim2") renderSim2();
+    if (pageId === "prac1") renderPractice1();
+    if (pageId === "prac2") renderPractice2();
+    if (pageId === "test") renderTest();
+    if (pageId === "report") renderReport();
+
+    saveState();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function initStartAndHeader() {
+    const ln = document.getElementById("start-lastname");
+    const fn = document.getElementById("start-firstname");
+    const cl = document.getElementById("start-class");
+    const hdrCl = document.getElementById("hdr-student-class");
+    const err = document.getElementById("start-error");
+    const startBtn = document.getElementById("btn-start-work");
+
+    ln.value = state.student.lastName || "";
+    fn.value = state.student.firstName || "";
+    cl.value = state.student.className || "";
+
+    hdrCl.oninput = () => {
+      state.student.className = hdrCl.value.trim();
+      cl.value = state.student.className;
+      saveState();
+      if (state.currentPage === "report") renderReport();
+    };
+
+    function handleStart() {
+      const lastVal = ln.value.trim();
+      const firstVal = fn.value.trim();
+      const classVal = cl.value.trim();
+
+      if (!lastVal || !firstVal || !classVal) {
+        err.textContent = "Будь ласка, заповніть усі обов'язкові поля: Прізвище, Ім'я та Клас.";
+        err.style.display = "block";
+        if (!lastVal) ln.focus();
+        else if (!firstVal) fn.focus();
+        else cl.focus();
+        return;
+      }
+
+      err.style.display = "none";
+      state.student = { lastName: lastVal, firstName: firstVal, className: classVal };
+      state.started = true;
+      state.completedPages.start = true;
+      saveState();
+      navigateTo("theory");
+    }
+
+    startBtn.onclick = handleStart;
+    [ln, fn, cl].forEach((inp) => {
+      inp.onkeydown = (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          handleStart();
+        }
+      };
+    });
+
+    document.querySelectorAll("#top-nav .nav-btn").forEach((btn) => {
+      btn.onclick = () => navigateTo(btn.getAttribute("data-page"));
+    });
+
+    document.querySelectorAll("[data-nav]").forEach((btn) => {
+      btn.onclick = () => navigateTo(btn.getAttribute("data-nav"));
+    });
+  }
+
+  function renderSim1() {
+    const host = document.getElementById("sim1-checkboxes");
+    const prefs = window.COURSE_DATA.preferences;
+
+    host.innerHTML = prefs
+      .map((item) => {
+        const isChecked = Boolean(state.sim1.checked[item.id]);
+        return `
+          <label class="check-item">
+            <input type="checkbox" data-pref="${item.id}" ${isChecked ? "checked" : ""} />
+            <span style="font-weight:600;">${item.label}</span>
+            <span style="margin-left:auto; font-family:monospace; font-size:0.85rem; color:#475569;">
+              ${item.varName}.get() == ${isChecked ? 1 : 0}
+            </span>
+          </label>`;
+      })
+      .join("");
+
+    host.querySelectorAll("input[type='checkbox']").forEach((chk) => {
+      chk.onchange = () => {
+        const id = chk.getAttribute("data-pref");
+        state.sim1.checked[id] = chk.checked;
+        saveState();
+        renderSim1();
+      };
+    });
+
+    updateSim1CodePreview();
+    updateSim1StatusText();
+
+    document.getElementById("sim1-check-btn").onclick = () => {
+      const selected = prefs.filter((p) => state.sim1.checked[p.id]);
+      const count = selected.length;
+      state.sim1.checkedOnce = true;
+      state.completedPages.sim1 = true;
+
+      if (count >= 2 && !state.sim1.bonusAwarded) {
+        state.sim1.bonusAwarded = true;
+      }
+
+      const out = document.getElementById("sim1-output");
+      if (count === 0) {
+        out.className = "feedback info";
+        out.innerHTML = "Увімкнено перемикачів: <strong>0</strong>. Жоден пункт не обрано.";
+      } else {
+        out.className = "feedback ok";
+        out.innerHTML = `Увімкнено перемикачів: <strong>${count}</strong> з 5.<br/>Обрані пункти: <strong>${selected.map((s) => s.label).join(", ")}</strong>.`;
+      }
+      saveState();
+      updateSim1StatusText();
+    };
+
+    document.getElementById("sim1-clear-btn").onclick = () => {
+      prefs.forEach((p) => {
+        state.sim1.checked[p.id] = false;
+      });
+      const out = document.getElementById("sim1-output");
+      out.className = "feedback info";
+      out.innerHTML = "Вибір очищено. Усі перемикачі мають значення <strong>0</strong>.";
+      saveState();
+      renderSim1();
+    };
+  }
+
+  function updateSim1StatusText() {
+    const st = document.getElementById("sim1-bonus-status");
+    if (!st) return;
+    st.textContent = state.sim1.bonusAwarded
+      ? "✅ Контрольну умову Симулятора №1 виконано! Нараховано +2 бали."
+      : "ℹ️ Увімкніть щонайменше 2 перемикачі та натисніть «Перевірити», щоб отримати +2 бали.";
+  }
+
+  function updateSim1CodePreview() {
+    const prefs = window.COURSE_DATA.preferences;
+    const varsDecl = prefs.map((p) => `${p.varName} = IntVar(value=${state.sim1.checked[p.id] ? 1 : 0})`).join("\n");
+    const sumExpr = prefs.map((p) => `${p.varName}.get()`).join(" + ");
+    const codeEl = document.getElementById("sim1-live-code");
+    if (codeEl) {
+      codeEl.textContent = `from tkinter import *
+
+root = Tk()
+root.title("Мої вподобання")
+
+${varsDecl}
+
+def check_choices():
+    total = ${sumExpr}
+    print("Увімкнено перемикачів:", total)`;
+    }
+  }
+
+  function renderSim2() {
+    const scoreEl = document.getElementById("sim2-score-val");
+    if (scoreEl) scoreEl.textContent = String(state.sim2.score);
+    updateSim2CodeAndStatus();
+
+    function applyChange(delta, resetFlag, actionLabel, funcName) {
+      if (resetFlag) state.sim2.score = 0;
+      else state.sim2.score += delta;
+      state.sim2.lastAction = funcName;
+      state.completedPages.sim2 = true;
+      if (state.sim2.score === 10 && !state.sim2.bonusAwarded) {
+        state.sim2.bonusAwarded = true;
+      }
+      const logEl = document.getElementById("sim2-action-log");
+      logEl.className = "feedback ok";
+      logEl.innerHTML = `Виконано дію: <strong>${actionLabel}</strong> (виклик <code>${funcName}()</code>). Поточне значення глобальної змінної: <strong>score = ${state.sim2.score}</strong>.`;
+      saveState();
+      renderSim2();
+    }
+
+    document.getElementById("sim2-add1").onclick = () => applyChange(1, false, "Додати 1 бал", "add_1");
+    document.getElementById("sim2-add5").onclick = () => applyChange(5, false, "Додати 5 балів", "add_5");
+    document.getElementById("sim2-sub1").onclick = () => applyChange(-1, false, "Відняти 1 бал", "sub_1");
+    document.getElementById("sim2-reset").onclick = () => applyChange(0, true, "Скинути", "reset_score");
+  }
+
+  function updateSim2CodeAndStatus() {
+    const st = document.getElementById("sim2-bonus-status");
+    if (st) {
+      st.textContent = state.sim2.bonusAwarded
+        ? "✅ Контрольну умову Симулятора №2 виконано (досягнуто score = 10)! Нараховано +2 бали."
+        : "ℹ️ Змініть значення лічильника до 10 за допомогою кнопок, щоб отримати +2 бали.";
+    }
+    const codeEl = document.getElementById("sim2-live-code");
+    if (codeEl) {
+      codeEl.textContent = `score = ${state.sim2.score}  # глобальна змінна (спільна для всіх функцій)
+
+def add_1():
+    global score
+    score = score + 1
+
+def add_5():
+    global score
+    score = score + 5
+
+def sub_1():
+    global score
+    score = score - 1
+
+def reset_score():
+    global score
+    score = 0`;
+    }
+  }
+
+  function renderPractice1() {
+    const host = document.getElementById("prac1-container");
+    const tasks = window.COURSE_DATA.practice1;
+
+    host.innerHTML = tasks
+      .map((t) => {
+        const isSolved = Boolean(state.prac1.solved[t.id]);
+        const saved = state.prac1.userAnswers[t.id];
+        let body = "";
+
+        if (t.type === "single") {
+          body = t.options
+            .map(
+              (opt, idx) => `
+              <label class="option-label">
+                <input type="radio" name="${t.id}" value="${idx}" ${Number(saved) === idx ? "checked" : ""} ${isSolved ? "disabled" : ""} />
+                <span>${opt}</span>
+              </label>`
+            )
+            .join("");
+        } else if (t.type === "select_code") {
+          body = `
+            <div class="code-block">
+              ${t.codeBefore}<select id="inp_${t.id}" class="select-input" style="width:auto; display:inline-block; padding:4px 8px;" ${isSolved ? "disabled" : ""}>
+                <option value="">-- обери --</option>
+                ${t.options.map((o) => `<option value="${o}" ${saved === o ? "selected" : ""}>${o}</option>`).join("")}
+              </select>${escapeHtml(t.codeAfter)}
+            </div>`;
+        } else if (t.type === "matching") {
+          const mapSaved = typeof saved === "object" && saved !== null ? saved : {};
+          body = t.pairs
+            .map(
+              (pair, idx) => `
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; align-items:center; margin-bottom:8px;">
+                <div style="background:#f8fafc; padding:10px; border-radius:8px; border:1px solid #cbd5e1; font-weight:700;"><code>${pair.left}</code></div>
+                <select class="select-input" data-match="${t.id}" data-idx="${idx}" ${isSolved ? "disabled" : ""}>
+                  <option value="">-- оберіть значення --</option>
+                  ${t.rightOptions.map((ro) => `<option value="${ro}" ${mapSaved[idx] === ro ? "selected" : ""}>${ro}</option>`).join("")}
+                </select>
+              </div>`
+            )
+            .join("");
+        } else if (t.type === "sim1_count") {
+          body = `
+            <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center;">
+              <input id="inp_${t.id}" class="text-input" style="max-width:180px;" type="number" min="0" max="5" placeholder="0–5" value="${saved !== undefined ? saved : ""}" ${isSolved ? "disabled" : ""} />
+              <button type="button" class="btn btn-outline" data-nav="sim1">Перейти до Симулятора №1</button>
+            </div>`;
+        }
+
+        return `
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; gap:10px; align-items:center; margin-bottom:10px;">
+              <strong>${t.question}</strong>
+              <span style="white-space:nowrap; font-size:0.85rem; font-weight:700; color:${isSolved ? "#166534" : "#6d28d9"};">
+                ${isSolved ? "✅ +2 / 2 бали" : "2 бали"}
+              </span>
+            </div>
+            ${body}
+            <div style="margin-top:10px;">
+              <button type="button" class="btn btn-primary" data-check-p1="${t.id}" ${isSolved ? "disabled" : ""}>Перевірити завдання</button>
+            </div>
+            <div id="fb_${t.id}" class="feedback ${isSolved ? "ok" : ""}" style="${isSolved ? "" : "display:none;"}">
+              ${isSolved ? "Правильно! Зараховано 2 бали." : ""}
+            </div>
+          </div>`;
+      })
+      .join("");
+
+    host.querySelectorAll("[data-nav]").forEach((b) => {
+      b.onclick = () => navigateTo(b.getAttribute("data-nav"));
+    });
+
+    host.querySelectorAll("[data-check-p1]").forEach((btn) => {
+      btn.onclick = () => {
+        const id = btn.getAttribute("data-check-p1");
+        if (state.prac1.solved[id]) return;
+        const task = tasks.find((x) => x.id === id);
+        const fb = document.getElementById("fb_" + id);
+        let ok = false;
+
+        if (task.type === "single") {
+          const sel = host.querySelector(`input[name="${id}"]:checked`);
+          if (!sel) { showFb(fb, "err", "Оберіть варіант відповіді."); return; }
+          state.prac1.userAnswers[id] = Number(sel.value);
+          ok = Number(sel.value) === task.correct;
+        } else if (task.type === "select_code") {
+          const val = document.getElementById("inp_" + id).value;
+          if (!val) { showFb(fb, "err", "Оберіть пропущене слово зі списку."); return; }
+          state.prac1.userAnswers[id] = val;
+          ok = val === task.correct;
+        } else if (task.type === "matching") {
+          const map = {};
+          let allChosen = true;
+          host.querySelectorAll(`select[data-match="${id}"]`).forEach((s) => {
+            const idx = s.getAttribute("data-idx");
+            if (!s.value) allChosen = false;
+            map[idx] = s.value;
+          });
+          if (!allChosen) { showFb(fb, "err", "Встановіть відповідність для всіх чотирьох пунктів."); return; }
+          state.prac1.userAnswers[id] = map;
+          ok = task.pairs.every((p, idx) => map[idx] === p.right);
+        } else if (task.type === "sim1_count") {
+          const raw = document.getElementById("inp_" + id).value.trim();
+          if (raw === "") { showFb(fb, "err", "Введіть кількість увімкнених перемикачів із Симулятора №1."); return; }
+          const num = Number(raw);
+          state.prac1.userAnswers[id] = num;
+          const realActive = Object.values(state.sim1.checked).filter(Boolean).length;
+          if (realActive === 0) {
+            showFb(fb, "err", "У Симуляторі №1 зараз не увімкнено жодного перемикача. Увімкніть хоча б 1 перемикач у Симуляторі №1 і вкажіть їх кількість.");
+            return;
+          }
+          ok = num === realActive;
+        }
+
+        if (ok) {
+          state.prac1.solved[id] = true;
+          saveState();
+          renderPractice1();
+        } else {
+          saveState();
+          showFb(fb, "err", "Спробуй ще раз. Перевірте умову завдання.");
+        }
+      };
+    });
+  }
+
+  function renderPractice2() {
+    const host = document.getElementById("prac2-container");
+    const tasks = window.COURSE_DATA.practice2;
+
+    host.innerHTML = tasks
+      .map((t) => {
+        const isSolved = Boolean(state.prac2.solved[t.id]);
+        const saved = state.prac2.userAnswers[t.id];
+        let body = "";
+
+        if (t.type === "single") {
+          body = t.options
+            .map(
+              (opt, idx) => `
+              <label class="option-label">
+                <input type="radio" name="${t.id}" value="${idx}" ${Number(saved) === idx ? "checked" : ""} ${isSolved ? "disabled" : ""} />
+                <span><code>${opt}</code></span>
+              </label>`
+            )
+            .join("");
+        } else if (t.type === "input_word") {
+          body = `
+            <pre class="code-block">${escapeHtml(t.codeSnippet)}</pre>
+            <input id="inp_${t.id}" class="text-input" style="max-width:260px;" type="text" placeholder="Впишіть ключове слово" value="${saved || ""}" ${isSolved ? "disabled" : ""} />`;
+        } else if (t.type === "input_number") {
+          body = `
+            <pre class="code-block">${escapeHtml(t.codeSnippet)}</pre>
+            <input id="inp_${t.id}" class="text-input" style="max-width:220px;" type="number" placeholder="Введіть число" value="${saved !== undefined ? saved : ""}" ${isSolved ? "disabled" : ""} />`;
+        } else if (t.type === "sim2_target") {
+          body = `
+            <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center;">
+              <input id="inp_${t.id}" class="text-input" style="max-width:200px;" type="number" placeholder="Отримане значення" value="${saved !== undefined ? saved : ""}" ${isSolved ? "disabled" : ""} />
+              <button type="button" class="btn btn-outline" data-nav="sim2">Перейти до Симулятора №2</button>
+            </div>`;
+        }
+
+        return `
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; gap:10px; align-items:center; margin-bottom:10px;">
+              <strong>${t.question}</strong>
+              <span style="white-space:nowrap; font-size:0.85rem; font-weight:700; color:${isSolved ? "#166534" : "#0d9488"};">
+                ${isSolved ? "✅ +2 / 2 бали" : "2 бали"}
+              </span>
+            </div>
+            ${body}
+            <div style="margin-top:10px;">
+              <button type="button" class="btn btn-teal" data-check-p2="${t.id}" ${isSolved ? "disabled" : ""}>Перевірити завдання</button>
+            </div>
+            <div id="fb_${t.id}" class="feedback ${isSolved ? "ok" : ""}" style="${isSolved ? "" : "display:none;"}">
+              ${isSolved ? "Правильно! Зараховано 2 бали." : ""}
+            </div>
+          </div>`;
+      })
+      .join("");
+
+    host.querySelectorAll("[data-nav]").forEach((b) => {
+      b.onclick = () => navigateTo(b.getAttribute("data-nav"));
+    });
+
+    host.querySelectorAll("[data-check-p2]").forEach((btn) => {
+      btn.onclick = () => {
+        const id = btn.getAttribute("data-check-p2");
+        if (state.prac2.solved[id]) return;
+        const task = tasks.find((x) => x.id === id);
+        const fb = document.getElementById("fb_" + id);
+        let ok = false;
+
+        if (task.type === "single") {
+          const sel = host.querySelector(`input[name="${id}"]:checked`);
+          if (!sel) { showFb(fb, "err", "Оберіть варіант відповіді."); return; }
+          state.prac2.userAnswers[id] = Number(sel.value);
+          ok = Number(sel.value) === task.correct;
+        } else if (task.type === "input_word") {
+          const val = document.getElementById("inp_" + id).value.trim();
+          if (!val) { showFb(fb, "err", "Введіть пропущене слово."); return; }
+          state.prac2.userAnswers[id] = val;
+          ok = val === task.correct;
+        } else if (task.type === "input_number") {
+          const raw = document.getElementById("inp_" + id).value.trim();
+          if (raw === "") { showFb(fb, "err", "Введіть числове значення."); return; }
+          state.prac2.userAnswers[id] = Number(raw);
+          ok = Number(raw) === task.correct;
+        } else if (task.type === "sim2_target") {
+          const raw = document.getElementById("inp_" + id).value.trim();
+          if (raw === "") { showFb(fb, "err", "Введіть значення лічильника із Симулятора №2."); return; }
+          const num = Number(raw);
+          state.prac2.userAnswers[id] = num;
+          if (state.sim2.score !== 10) {
+            showFb(fb, "err", "Спочатку в Симуляторі №2 доведіть значення глобальної змінної score до 10, а потім введіть 10 у це поле.");
+            return;
+          }
+          ok = num === 10 && state.sim2.score === 10;
+        }
+
+        if (ok) {
+          state.prac2.solved[id] = true;
+          saveState();
+          renderPractice2();
+        } else {
+          saveState();
+          showFb(fb, "err", "Спробуй ще раз.");
+        }
+      };
+    });
+  }
+
+  function renderTest() {
+    const host = document.getElementById("test-container");
+    const questions = window.COURSE_DATA.finalTest;
+    const allCompleted = questions.every((q) => Boolean(state.test.solved[q.id]));
+
+    host.innerHTML = questions
+      .map((q) => {
+        const isSolved = Boolean(state.test.solved[q.id]);
+        const saved = state.test.userAnswers[q.id];
+        return `
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; gap:10px; align-items:flex-start; margin-bottom:10px;">
+              <div style="white-space:pre-line; font-weight:700;">${escapeHtml(q.question)}</div>
+              <span style="white-space:nowrap; font-size:0.85rem; font-weight:700; color:${isSolved ? "#166534" : "#1d4ed8"};">
+                ${isSolved ? "✅ +2 / 2 бали" : "2 бали"}
+              </span>
+            </div>
+            <div>
+              ${q.options
+                .map(
+                  (opt, idx) => `
+                  <label class="option-label">
+                    <input type="radio" name="${q.id}" value="${idx}" ${Number(saved) === idx ? "checked" : ""} ${isSolved ? "disabled" : ""} />
+                    <span>${escapeHtml(opt)}</span>
+                  </label>`
+                )
+                .join("")}
+            </div>
+            <div style="margin-top:10px;">
+              <button type="button" class="btn btn-primary" data-check-test="${q.id}" ${isSolved ? "disabled" : ""}>Відповісти</button>
+            </div>
+            <div id="fb_${q.id}" class="feedback ${isSolved ? "ok" : ""}" style="${isSolved ? "" : "display:none;"}">
+              ${isSolved ? "Правильно!" + (allCompleted ? " " + escapeHtml(q.explanation) : "") : ""}
+            </div>
+          </div>`;
+      })
+      .join("");
+
+    host.querySelectorAll("[data-check-test]").forEach((btn) => {
+      btn.onclick = () => {
+        const id = btn.getAttribute("data-check-test");
+        if (state.test.solved[id]) return;
+        const q = questions.find((x) => x.id === id);
+        const fb = document.getElementById("fb_" + id);
+        const sel = host.querySelector(`input[name="${id}"]:checked`);
+
+        if (!sel) { showFb(fb, "err", "Оберіть один із варіантів відповіді."); return; }
+
+        const chosen = Number(sel.value);
+        state.test.userAnswers[id] = chosen;
+        state.test.attempts[id] = (state.test.attempts[id] || 0) + 1;
+
+        if (chosen === q.correct) {
+          state.test.solved[id] = true;
+          saveState();
+          renderTest();
+        } else {
+          saveState();
+          showFb(fb, "err", "Спробуй ще раз");
+        }
+      };
+    });
+  }
+
+  function renderReport() {
+    const b = calculateTotalBreakdown();
+    const fullName = `${state.student.lastName || ""} ${state.student.firstName || ""}`.trim() || "Не вказано";
+    const classStr = state.student.className || "8";
+    const today = new Date().toLocaleDateString("uk-UA", { day: "2-digit", month: "2-digit", year: "numeric" });
+
+    document.getElementById("rep-class-top").textContent = classStr;
+    document.getElementById("rep-student-fullname").textContent = fullName;
+    document.getElementById("rep-student-class").textContent = classStr;
+    document.getElementById("rep-date").textContent = today;
+    document.getElementById("rep-sig-student").textContent = fullName;
+
+    let statusText = "Роботу розпочато";
+    if (b.total >= 30) statusText = "Відмінно виконано";
+    else if (b.total >= 20) statusText = "Виконано успішно";
+    else if (b.total > 0) statusText = "Виконано частково";
+    document.getElementById("rep-status").textContent = statusText;
+
+    document.getElementById("rep-prac1").textContent = String(b.p1Score);
+    document.getElementById("rep-prac2").textContent = String(b.p2Score);
+    document.getElementById("rep-test").textContent = String(b.testScore);
+    document.getElementById("rep-s1").textContent = String(b.s1Bonus);
+    document.getElementById("rep-s2").textContent = String(b.s2Bonus);
+    document.getElementById("rep-bonus").textContent = String(b.bonusTotal);
+    document.getElementById("rep-total").textContent = String(b.total);
+    document.getElementById("rep-total-box").textContent = String(b.total);
+    document.getElementById("rep-percent").textContent = b.percent + "%";
+    document.getElementById("rep-grade12").textContent = String(b.grade12);
+
+    document.getElementById("btn-print-report").onclick = () => window.print();
+
+    document.getElementById("btn-reset-all").onclick = () => {
+      if (window.confirm("Очистити всі збережені відповіді та розпочати практикум заново?")) {
+        localStorage.removeItem(STORAGE_KEY);
+        state = getDefaultState();
+        saveState();
+        initStartAndHeader();
+        navigateTo("start");
+      }
+    };
+  }
+
+  function showFb(el, cls, msg) {
+    if (!el) return;
+    el.className = "feedback " + cls;
+    el.textContent = msg;
+    el.style.display = "block";
+  }
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+
+  function bootstrap() {
+    initStartAndHeader();
+    updateHeaderAndProgress();
+    if (isStudentRegistered() && state.currentPage && state.currentPage !== "start") {
+      navigateTo(state.currentPage);
+    } else {
+      navigateTo("start");
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bootstrap);
+  } else {
+    bootstrap();
+  }
+})();
+
+  </script>
+</body>
+</html>
