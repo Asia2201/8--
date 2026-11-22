@@ -6,12 +6,12 @@
     <title>Інформатика 8 клас — Використання перемикачів. Глобальні змінні в Python</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <!-- ЗАГАЛЬНА ВЕРХНЯ ПАНЕЛЬ НАВІГАЦІЇ ТА ШАПКА СТОРІНКИ -->
+    <!-- ШАПКА СТОРІНКИ ТА ВЕРХНЯ НАВІГАЦІЯ -->
     <header class="global-header no-print">
         <div class="header-top">
             <div class="logo-area">
@@ -21,35 +21,39 @@
                     <p class="header-subtitle">Тема: «Використання перемикачів. Глобальні змінні в Python»</p>
                 </div>
             </div>
-            <div class="user-meta-card">
-                <div class="meta-field">
-                    <span class="meta-label">Учень / учениця:</span>
-                    <strong id="headerStudentName" class="meta-value">Не вказано</strong>
+            
+            <div class="header-status-group">
+                <div class="user-meta-card">
+                    <div class="meta-field">
+                        <span class="meta-label">Учень / учениця:</span>
+                        <strong id="headerStudentName" class="meta-value">Не вказано</strong>
+                    </div>
+                    <div class="meta-field">
+                        <span class="meta-label">Клас:</span>
+                        <input type="text" id="headerStudentClass" class="meta-input" placeholder="8-А" autocomplete="off">
+                    </div>
                 </div>
-                <div class="meta-field">
-                    <span class="meta-label">Клас:</span>
-                    <input type="text" id="headerStudentClass" class="meta-input" placeholder="8-А" autocomplete="off">
-                </div>
-                <div class="meta-field score-badge">
-                    <span class="meta-label">Бали:</span>
-                    <strong id="headerScore">0 / 36</strong>
+
+                <div class="score-badge-card">
+                    <span class="score-badge-label">Поточний результат:</span>
+                    <strong id="headerScore" class="score-badge-val">0 / 36</strong>
                 </div>
             </div>
         </div>
 
         <!-- Навігаційна панель блоків -->
         <nav class="nav-tabs">
-            <button type="button" class="tab-btn active" data-tab="page1">1. Старт 🚀</button>
-            <button type="button" class="tab-btn" data-tab="page2">2. Теорія 📖</button>
-            <button type="button" class="tab-btn" data-tab="page3">3. Симулятор №1 🔘</button>
-            <button type="button" class="tab-btn" data-tab="page4">4. Симулятор №2 🔢</button>
-            <button type="button" class="tab-btn" data-tab="page5">5. Практика №1 ✍️</button>
-            <button type="button" class="tab-btn" data-tab="page6">6. Практика №2 💻</button>
-            <button type="button" class="tab-btn" data-tab="page7">7. Підсумковий тест 📝</button>
-            <button type="button" class="tab-btn" data-tab="page8">8. Звіт та оцінка 🏆</button>
+            <button type="button" class="tab-btn active" data-tab="page1"><span class="tab-icon">🚀</span> 1. Старт</button>
+            <button type="button" class="tab-btn" data-tab="page2"><span class="tab-icon">📖</span> 2. Теорія</button>
+            <button type="button" class="tab-btn" data-tab="page3"><span class="tab-icon">🔘</span> 3. Симулятор №1</button>
+            <button type="button" class="tab-btn" data-tab="page4"><span class="tab-icon">🔢</span> 4. Симулятор №2</button>
+            <button type="button" class="tab-btn" data-tab="page5"><span class="tab-icon">✍️</span> 5. Практика №1</button>
+            <button type="button" class="tab-btn" data-tab="page6"><span class="tab-icon">💻</span> 6. Практика №2</button>
+            <button type="button" class="tab-btn" data-tab="page7"><span class="tab-icon">📝</span> 7. Підсумковий тест</button>
+            <button type="button" class="tab-btn" data-tab="page8"><span class="tab-icon">🏆</span> 8. Звіт та оцінка</button>
         </nav>
 
-        <!-- Індикатор прогресу -->
+        <!-- Індикатор проходження роботи -->
         <div class="progress-bar-container">
             <div class="progress-bar-fill" id="progressBarFill"></div>
         </div>
@@ -60,9 +64,9 @@
         <!-- ================= СТОРІНКА 1. СТАРТ РОБОТИ ================= -->
         <section id="page1" class="page-block active">
             <div class="hero-card">
-                <div class="hero-badge">Практична робота з інформатики · 8 клас</div>
-                <h2 class="hero-title">Використання перемикачів. Глобальні змінні в Python</h2>
-                <p class="hero-desc">Вітаємо у навчальному практикумі! Пройди теоретичний блок, випробуй рішення у живих симуляторах, виконай практичні вправи та склади підсумковий тест для отримання оцінки за 12-бальною шкалою.</p>
+                <div class="hero-badge">Практикум з інформатики · 8 клас</div>
+                <h2 class="hero-title">Використання перемикачів. Глобальні змінні в Python 🚀</h2>
+                <p class="hero-desc">Вітаємо у навчальному інтерактивному практикумі! Заповни дані про себе, щоб розпочати навчання, виконати практичні вправи, сформувати підсумковий звіт та отримати оцінку за 12-бальною шкалою.</p>
 
                 <div class="start-form-card">
                     <h3>Заповни дані для початку роботи:</h3>
@@ -81,14 +85,38 @@
                         </div>
                     </div>
 
-                    <div class="info-box">
-                        <div class="info-item">📌 <strong>Загальна кількість балів:</strong> 36 балів</div>
-                        <div class="info-item">⏳ <strong>Час виконання:</strong> 35–45 хвилин</div>
-                        <div class="info-item">🎯 <strong>Оцінювання:</strong> Автоматичне за 12-бальною шкалою</div>
-                        <div class="info-item">📄 <strong>Звіт:</strong> Можливість зберегти та роздрукувати підсумковий звіт</div>
+                    <div class="info-grid-box">
+                        <div class="info-item-card">
+                            <div class="info-icon">📌</div>
+                            <div>
+                                <strong>Загальна кількість балів</strong>
+                                <p>36 балів за всі завдання</p>
+                            </div>
+                        </div>
+                        <div class="info-item-card">
+                            <div class="info-icon">⏳</div>
+                            <div>
+                                <strong>Орієнтовний час</strong>
+                                <p>35–45 хвилин</p>
+                            </div>
+                        </div>
+                        <div class="info-item-card">
+                            <div class="info-icon">🎯</div>
+                            <div>
+                                <strong>Автоматична оцінка</strong>
+                                <p>За 12-бальною шкалою</p>
+                            </div>
+                        </div>
+                        <div class="info-item-card">
+                            <div class="info-icon">📄</div>
+                            <div>
+                                <strong>Підсумковий звіт</strong>
+                                <p>Друк або збереження у PDF</p>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="action-footer">
+                    <div class="action-footer center">
                         <button type="button" id="btnStart" class="btn btn-primary btn-lg">Розпочати роботу 🔥</button>
                     </div>
                 </div>
@@ -100,31 +128,31 @@
             <div class="block-header">
                 <div class="block-num">02</div>
                 <div>
-                    <h2>Теоретичний конспект з теми</h2>
-                    <p>Опрацюй теоретичні відомості. Теоретичний блок є навчальним і не дає балів.</p>
+                    <h2>📖 Теоретичний конспект з теми</h2>
+                    <p>Опрацюй теоретичний матеріал. Теоретичний блок є навчальним і не дає балів.</p>
                 </div>
             </div>
 
-            <div class="cards-grid">
+            <div class="cards-stack">
                 <!-- Розділ А -->
-                <div class="card card-wide">
-                    <h3>Розділ А. Перемикачі в Python (Checkbutton) 🔘</h3>
+                <div class="card card-accent-purple">
+                    <h3>🔘 Розділ А. Перемикачі в Python (Checkbutton)</h3>
                     <p><strong>Перемикач (Checkbutton)</strong> — це елемент графічного інтерфейсу <code>Tkinter</code>, який дозволяє користувачеві увімкнути або вимкнути певну опцію (поставити або зняти прапорець «гачок»).</p>
                     
-                    <div class="comparison-table-wrapper">
+                    <div class="styled-table-wrapper">
                         <table class="styled-table">
                             <thead>
                                 <tr>
-                                    <th>Елемент</th>
+                                    <th>Елемент інтерфейсу</th>
                                     <th>Призначення</th>
-                                    <th>Особливість</th>
+                                    <th>Відмінність від інших</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td><code>Button</code></td>
-                                    <td>Виконання миттєвої дії при натисканні</td>
-                                    <td>Не зберігає стан «увімкнено/вимкнено»</td>
+                                    <td>Виконання дії при кліку</td>
+                                    <td>Не зберігає стан після натискання</td>
                                 </tr>
                                 <tr>
                                     <td><code>Checkbutton</code></td>
@@ -155,26 +183,25 @@ root.mainloop()</code></pre>
                     <div class="explain-list">
                         <h4>Покрокове пояснення коду:</h4>
                         <ul>
-                            <li><code>from tkinter import *</code> — імпортуємо всі модулі бібліотеки Tkinter для створення графічного вікна.</li>
-                            <li><code>root = Tk()</code> та <code>root.title(...)</code> — створюємо головне вікно програми та задаємо його заголовок.</li>
-                            <li><code>var1 = IntVar()</code> — створюємо спеціальну цілочисельну змінну Tkinter для збереження стану прапорця.</li>
-                            <li><code>check = Checkbutton(root, text=..., variable=var1)</code> — створюємо віджет перемикача. Параметр <code>variable=var1</code> пов'язує перемикач зі змінною <code>var1</code>.</li>
+                            <li><code>from tkinter import *</code> — імпортуємо бібліотеку Tkinter для створення графічних вікон.</li>
+                            <li><code>root = Tk()</code> та <code>root.title(...)</code> — створюємо головне вікно та додаємо заголовок.</li>
+                            <li><code>var1 = IntVar()</code> — створюємо спеціальну змінну Tkinter для збереження цілого значення.</li>
+                            <li><code>check = Checkbutton(root, text=..., variable=var1)</code> — створюємо перемикач і пов'язуємо його зі змінною <code>var1</code> за допомогою параметра <code>variable</code>.</li>
                             <li><code>check.pack()</code> — розміщуємо перемикач у вікні.</li>
                         </ul>
                     </div>
 
-                    <div class="note-box">
-                        💡 <strong>Головне правило:</strong> 
-                        Якщо прапорець увімкнено (поставлено гачок), змінна <code>var1.get()</code> повертає <code>1</code>. Якщо прапорець вимкнено — повертає <code>0</code>.
+                    <div class="note-box purple">
+                        💡 <strong>Запам'ятай:</strong> Значення <code>1</code> означає, що перемикач <strong>увімкнений</strong>. Значення <code>0</code> означає, що перемикач <strong>вимкнений</strong>. Зчитати стан змінної можна методом <code>var1.get()</code>.
                     </div>
                 </div>
 
                 <!-- Розділ Б -->
-                <div class="card card-wide">
-                    <h3>Розділ Б. Глобальні змінні у Python 🌐</h3>
-                    <p>Під час написання програм із графічним інтерфейсом часто виникає потреба змінювати спільні дані (наприклад, лічильник балів або кількість очок) з різних функцій.</p>
+                <div class="card card-accent-blue">
+                    <h3>🌐 Розділ Б. Глобальні змінні у Python</h3>
+                    <p>У програмах із графічним інтерфейсом виникає потреба змінювати спільні дані (наприклад, лічильник балів) з різних функцій.</p>
 
-                    <div class="comparison-table-wrapper">
+                    <div class="styled-table-wrapper">
                         <table class="styled-table">
                             <thead>
                                 <tr>
@@ -186,23 +213,23 @@ root.mainloop()</code></pre>
                             <tbody>
                                 <tr>
                                     <td><strong>Локальна змінна</strong></td>
-                                    <td>Усередині конкретної функції</td>
-                                    <td>Доступна лише всередині цієї функції та зникає після її завершення</td>
+                                    <td>Всередині функції</td>
+                                    <td>Доступна лише всередині цієї функції</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Глобальна змінна</strong></td>
                                     <td>У основній програмі (поза функціями)</td>
-                                    <td>Доступна для зчитування в усій програмі та між різними функціями</td>
+                                    <td>Доступна у всій програмі та між різними функціями</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
-                    <h4>Приклад використання глобальної змінної:</h4>
+                    <h4>Приклад зміни глобальної змінної:</h4>
                     <pre class="code-block"><code>score = 0  # Глобальна змінна
 
 def add_point():
-    global score     # Оголошуємо, що будемо змінювати саме глобальну змінну score
+    global score     # Оголошуємо змінну як глобальну
     score = score + 1
 
 add_point()
@@ -211,22 +238,26 @@ print(score)  # Виведе: 1</code></pre>
                     <div class="explain-list">
                         <h4>Покрокове пояснення коду:</h4>
                         <ul>
-                            <li><code>score = 0</code> — створюємо глобальну змінну <code>score</code> зі початковим значенням 0.</li>
-                            <li><code>def add_point():</code> — визначаємо функцію додавання балу.</li>
-                            <li><code>global score</code> — ключова команда! Вона вказує Python, що функція має модифікувати глобальну змінну <code>score</code>, а не створювати нову локальну.</li>
-                            <li><code>score = score + 1</code> — збільшуємо значення глобальної змінної на 1.</li>
+                            <li><code>score = 0</code> — створюється глобальна змінна поза функціями.</li>
+                            <li><code>def add_point():</code> — створюється функція додавання балу.</li>
+                            <li><code>global score</code> — вказує Python, що всередині функції буде змінюватися саме глобальна змінна <code>score</code>.</li>
+                            <li><code>score = score + 1</code> — збільшує значення глобальної змінної на 1.</li>
                         </ul>
                     </div>
 
                     <div class="note-box warning">
-                        ⚠️ <strong>Пам'ятай:</strong> Якщо всередині функції потрібно тільки зчитати глобальну змінну — <code>global</code> можна не писати. Але якщо потрібно <strong>змінити</strong> її значення (наприклад, <code>score = score + 1</code>), команда <code>global score</code> є обов'язковою!
+                        ⚠️ <strong>Головне правило:</strong> Якщо функція повинна <strong>змінювати</strong> глобальну змінну, необхідно оголосити її за допомогою ключового слова <code>global</code>!
                     </div>
                 </div>
             </div>
 
-            <div class="page-nav-buttons">
-                <button type="button" class="btn btn-secondary nav-btn-prev" data-prev="page1">⬅️ Назад</button>
-                <button type="button" class="btn btn-primary nav-btn-next" data-next="page3">Далі до Симулятора №1 ➡️</button>
+            <!-- УНІВЕРСАЛЬНИЙ БЛОК НАВІГАЦІЇ ВНИЗУ СТОРІНКИ -->
+            <div class="page-nav-bar">
+                <button type="button" class="btn btn-secondary btn-home-action">🏠 На головну</button>
+                <div class="nav-right">
+                    <button type="button" class="btn btn-secondary nav-btn-prev" data-prev="page1">⬅️ Назад</button>
+                    <button type="button" class="btn btn-primary nav-btn-next" data-next="page3">Далі ➡️</button>
+                </div>
             </div>
         </section>
 
@@ -235,75 +266,78 @@ print(score)  # Виведе: 1</code></pre>
             <div class="block-header">
                 <div class="block-num">03</div>
                 <div>
-                    <h2>Симулятор №1 — Робота з перемикачами Checkbutton</h2>
-                    <p>Протестуй роботу перемикачів у віртуальному вікні Tkinter та отримай 2 додаткові бали.</p>
+                    <h2>🔘 Симулятор №1 — Використання перемикачів Checkbutton</h2>
+                    <p>Протестуй роботу перемикачів у інтерактивному вікні та отримай 2 додаткові бали.</p>
                 </div>
             </div>
 
-            <div class="sim-container card">
-                <div class="sim-header">
-                    <h3>Інтерактивне вікно Tkinter: «Мої вподобання»</h3>
-                    <span class="sim-status-tag">Додаткові бали: <strong id="sim1PointsTag">0 / 2</strong></span>
+            <div class="card sim-card">
+                <div class="sim-card-header">
+                    <h3>Віртуальне вікно Tkinter: «Мої вподобання»</h3>
+                    <span class="sim-badge">Контрольна умова: <strong id="sim1PointsTag">0 / 2 бали</strong></span>
                 </div>
 
                 <div class="gui-window-mock">
                     <div class="gui-titlebar">
-                        <span>Мої вподобання (Tkinter Window)</span>
-                        <div class="gui-controls"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                        <span class="gui-title">Мої вподобання (Tkinter Window)</span>
+                        <div class="gui-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
                     </div>
                     <div class="gui-body">
-                        <p class="gui-prompt">Обери свої вподобання зі списку нижче:</p>
+                        <p class="gui-label-prompt">Обери свої вподобання зі списку нижче:</p>
                         
-                        <div class="checkbox-group">
-                            <label class="custom-checkbox">
+                        <div class="checkbox-list">
+                            <label class="custom-chk-item">
                                 <input type="checkbox" id="sim1_check1" class="sim1-checkbox">
-                                <span class="checkmark"></span>
-                                1. Мені подобається програмувати
+                                <span class="chk-box"></span>
+                                Мені подобається програмування
                             </label>
-                            <label class="custom-checkbox">
+                            <label class="custom-chk-item">
                                 <input type="checkbox" id="sim1_check2" class="sim1-checkbox">
-                                <span class="checkmark"></span>
-                                2. Я люблю математику
+                                <span class="chk-box"></span>
+                                Я люблю математику
                             </label>
-                            <label class="custom-checkbox">
+                            <label class="custom-chk-item">
                                 <input type="checkbox" id="sim1_check3" class="sim1-checkbox">
-                                <span class="checkmark"></span>
-                                3. Я цікавлюся комп'ютерними іграми
+                                <span class="chk-box"></span>
+                                Я цікавлюся комп'ютерними іграми
                             </label>
-                            <label class="custom-checkbox">
+                            <label class="custom-chk-item">
                                 <input type="checkbox" id="sim1_check4" class="sim1-checkbox">
-                                <span class="checkmark"></span>
-                                4. Я люблю читати
+                                <span class="chk-box"></span>
+                                Я люблю читати
                             </label>
-                            <label class="custom-checkbox">
+                            <label class="custom-chk-item">
                                 <input type="checkbox" id="sim1_check5" class="sim1-checkbox">
-                                <span class="checkmark"></span>
-                                5. Я хочу створювати власні програми
+                                <span class="chk-box"></span>
+                                Я хочу створювати власні програми
                             </label>
                         </div>
 
                         <div class="gui-btn-row">
-                            <button type="button" id="btnSim1Check" class="btn btn-primary">Перевірити стан</button>
+                            <button type="button" id="btnSim1Check" class="btn btn-primary">Перевірити</button>
                             <button type="button" id="btnSim1Clear" class="btn btn-secondary">Очистити вибір</button>
                         </div>
 
-                        <div id="sim1ResultBox" class="sim-result-box hidden">
-                            <div class="result-count" id="sim1CountText">Увімкнено перемикачів: 0</div>
-                            <div class="result-list" id="sim1ListText"></div>
+                        <div id="sim1ResultBox" class="sim-result-card hidden">
+                            <div class="res-count" id="sim1CountText">Увімкнено перемикачів: 0</div>
+                            <div class="res-list" id="sim1ListText"></div>
                         </div>
                     </div>
                 </div>
 
                 <div class="code-explain-card">
-                    <h4>Код Python, що виконується під капотом симулятора:</h4>
+                    <h4>Код Python, який реалізує цю логіку:</h4>
                     <pre class="code-block"><code>count = var1.get() + var2.get() + var3.get() + var4.get() + var5.get()
-print(f"Обрано пунктів: {count}")</code></pre>
+print(f"Увімкнено перемикачів: {count}")</code></pre>
                 </div>
             </div>
 
-            <div class="page-nav-buttons">
-                <button type="button" class="btn btn-secondary nav-btn-prev" data-prev="page2">⬅️ Назад</button>
-                <button type="button" class="btn btn-primary nav-btn-next" data-next="page4">Далі до Симулятора №2 ➡️</button>
+            <div class="page-nav-bar">
+                <button type="button" class="btn btn-secondary btn-home-action">🏠 На головну</button>
+                <div class="nav-right">
+                    <button type="button" class="btn btn-secondary nav-btn-prev" data-prev="page2">⬅️ Назад</button>
+                    <button type="button" class="btn btn-primary nav-btn-next" data-next="page4">Далі ➡️</button>
+                </div>
             </div>
         </section>
 
@@ -312,37 +346,37 @@ print(f"Обрано пунктів: {count}")</code></pre>
             <div class="block-header">
                 <div class="block-num">04</div>
                 <div>
-                    <h2>Симулятор №2 — Лічильник з глобальною змінною</h2>
-                    <p>Спостерігай за зміною глобальної змінної <code>score</code> при виклику різних функцій (+2 додаткові бали).</p>
+                    <h2>🔢 Симулятор №2 — Робота з глобальними змінними</h2>
+                    <p>Змінюй значення глобальної змінної <code>score</code> за допомогою кнопок (+2 додаткові бали).</p>
                 </div>
             </div>
 
-            <div class="sim-container card">
-                <div class="sim-header">
+            <div class="card sim-card">
+                <div class="sim-card-header">
                     <h3>Інтерактивний симулятор: «Лічильник балів»</h3>
-                    <span class="sim-status-tag">Додаткові бали: <strong id="sim2PointsTag">0 / 2</strong></span>
+                    <span class="sim-badge">Контрольна умова: <strong id="sim2PointsTag">0 / 2 бали</strong></span>
                 </div>
 
                 <div class="gui-window-mock">
                     <div class="gui-titlebar">
-                        <span>Score Counter (Global Variable Demo)</span>
-                        <div class="gui-controls"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                        <span class="gui-title">Score Counter (Global Variable Demo)</span>
+                        <div class="gui-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
                     </div>
                     <div class="gui-body text-center">
-                        <div class="score-display-card">
-                            <span class="score-label">Поточне значення глобальної змінної <code>score</code>:</span>
-                            <div class="score-number" id="sim2ScoreValue">0</div>
+                        <div class="counter-display">
+                            <span class="cnt-label">Значення глобальної змінної <code>score</code>:</span>
+                            <div class="cnt-value" id="sim2ScoreValue">0</div>
                         </div>
 
-                        <div class="gui-btn-grid">
-                            <button type="button" id="btnSim2Add1" class="btn btn-mint">+1 бал</button>
-                            <button type="button" id="btnSim2Add5" class="btn btn-primary">+5 балів</button>
-                            <button type="button" id="btnSim2Sub1" class="btn btn-warning">-1 бал</button>
-                            <button type="button" id="btnSim2Reset" class="btn btn-danger">Скинути (0)</button>
+                        <div class="btn-grid-controls">
+                            <button type="button" id="btnSim2Add1" class="btn btn-teal">Додати 1 бал</button>
+                            <button type="button" id="btnSim2Add5" class="btn btn-primary">Додати 5 балів</button>
+                            <button type="button" id="btnSim2Sub1" class="btn btn-warning">Відняти 1 бал</button>
+                            <button type="button" id="btnSim2Reset" class="btn btn-danger">Скинути</button>
                         </div>
 
-                        <div id="sim2LogBox" class="sim-log-box">
-                            Журнал дій: натисни будь-яку кнопку для зміни змінної.
+                        <div id="sim2LogBox" class="sim-log">
+                            Натисни кнопку для виконання функції та зміни глобальної змінної score.
                         </div>
                     </div>
                 </div>
@@ -361,9 +395,12 @@ def reset():
                 </div>
             </div>
 
-            <div class="page-nav-buttons">
-                <button type="button" class="btn btn-secondary nav-btn-prev" data-prev="page3">⬅️ Назад</button>
-                <button type="button" class="btn btn-primary nav-btn-next" data-next="page5">Далі до Практики №1 ➡️</button>
+            <div class="page-nav-bar">
+                <button type="button" class="btn btn-secondary btn-home-action">🏠 На головну</button>
+                <div class="nav-right">
+                    <button type="button" class="btn btn-secondary nav-btn-prev" data-prev="page3">⬅️ Назад</button>
+                    <button type="button" class="btn btn-primary nav-btn-next" data-next="page5">Далі ➡️</button>
+                </div>
             </div>
         </section>
 
@@ -372,87 +409,91 @@ def reset():
             <div class="block-header">
                 <div class="block-num">05</div>
                 <div>
-                    <h2>Практична частина №1 — Перемикачі (Checkbutton)</h2>
+                    <h2>✍️ Практична частина №1 — Робота з перемикачами</h2>
                     <p>Виконай 4 завдання по 2 бали кожне. Максимальна оцінка за блок: <strong>8 балів</strong>.</p>
                 </div>
             </div>
 
-            <div class="tasks-container">
+            <div class="tasks-stack">
                 <!-- Завдання 1 -->
                 <div class="card task-card" id="taskCard_p1_q1">
-                    <div class="task-header">
-                        <h4>Завдання 1 (2 бали). Вибір відповіді</h4>
-                        <span class="task-score-badge" id="score_p1_q1">0 / 2 бали</span>
+                    <div class="task-title-row">
+                        <h4>Завдання 1 (2 бали). Обери правильну відповідь</h4>
+                        <span class="task-pts-badge" id="score_p1_q1">0 / 2 бали</span>
                     </div>
-                    <p class="task-question">Який елемент у бібліотеці Tkinter призначений для створення перемикача (прапорця)?</p>
-                    <div class="options-list">
-                        <label class="option-item"><input type="radio" name="p1_q1" value="Entry"> Entry</label>
-                        <label class="option-item"><input type="radio" name="p1_q1" value="Checkbutton"> Checkbutton</label>
-                        <label class="option-item"><input type="radio" name="p1_q1" value="Label"> Label</label>
-                        <label class="option-item"><input type="radio" name="p1_q1" value="Button"> Button</label>
+                    <p class="task-q-text">Який елемент Tkinter створює перемикач?</p>
+                    <div class="opts-grid">
+                        <label class="opt-card"><input type="radio" name="p1_q1" value="Entry"> Entry</label>
+                        <label class="opt-card"><input type="radio" name="p1_q1" value="Checkbutton"> Checkbutton</label>
+                        <label class="opt-card"><input type="radio" name="p1_q1" value="Label"> Label</label>
+                        <label class="opt-card"><input type="radio" name="p1_q1" value="Button"> Button</label>
                     </div>
                 </div>
 
                 <!-- Завдання 2 -->
                 <div class="card task-card" id="taskCard_p1_q2">
-                    <div class="task-header">
-                        <h4>Завдання 2 (2 бали). Вставка пропущеного слова</h4>
-                        <span class="task-score-badge" id="score_p1_q2">0 / 2 бали</span>
+                    <div class="task-title-row">
+                        <h4>Завдання 2 (2 бали). Встав пропущене слово в коді</h4>
+                        <span class="task-pts-badge" id="score_p1_q2">0 / 2 бали</span>
                     </div>
-                    <p class="task-question">Обери правильний тип змінної Tkinter для збереження стану перемикача у коді:</p>
-                    <pre class="code-block"><code>var1 = _______()
+                    <p class="task-q-text">Обери назву класу для створення змінної перемикача:</p>
+                    <pre class="code-block"><code>var1 = ______()
 
-check = Checkbutton(root, text="Навчання", variable=var1)</code></pre>
-                    <div class="options-list horizontal">
-                        <label class="option-item"><input type="radio" name="p1_q2" value="IntVar"> IntVar</label>
-                        <label class="option-item"><input type="radio" name="p1_q2" value="Label"> Label</label>
-                        <label class="option-item"><input type="radio" name="p1_q2" value="Button"> Button</label>
+check = Checkbutton(
+    root,
+    text="Навчання",
+    variable=var1
+)</code></pre>
+                    <div class="opts-grid horizontal">
+                        <label class="opt-card"><input type="radio" name="p1_q2" value="IntVar"> IntVar</label>
+                        <label class="opt-card"><input type="radio" name="p1_q2" value="Label"> Label</label>
+                        <label class="opt-card"><input type="radio" name="p1_q2" value="Button"> Button</label>
                     </div>
                 </div>
 
                 <!-- Завдання 3 -->
                 <div class="card task-card" id="taskCard_p1_q3">
-                    <div class="task-header">
-                        <h4>Завдання 3 (2 бали). Встановлення відповідності</h4>
-                        <span class="task-score-badge" id="score_p1_q3">0 / 2 бали</span>
+                    <div class="task-title-row">
+                        <h4>Завдання 3 (2 бали). Встанови відповідність</h4>
+                        <span class="task-pts-badge" id="score_p1_q3">0 / 2 бали</span>
                     </div>
-                    <p class="task-question">З'єднай елемент або метод з його призначенням:</p>
+                    <p class="task-q-text">Зістав елемент або метод з його функцією:</p>
                     
-                    <div class="match-grid">
-                        <div class="match-row">
+                    <div class="match-list">
+                        <div class="match-item">
                             <span>1. <code>Checkbutton</code></span>
                             <select id="p1_q3_m1" class="match-select">
-                                <option value="">-- Оберіть значення --</option>
+                                <option value="">-- Оберіть призначення --</option>
                                 <option value="create">Створює перемикач</option>
                                 <option value="store">Зберігає ціле значення</option>
                                 <option value="bind">Пов'язує перемикач зі змінною</option>
                                 <option value="get">Отримує значення змінної</option>
                             </select>
                         </div>
-                        <div class="match-row">
+                        <div class="match-item">
                             <span>2. <code>IntVar()</code></span>
                             <select id="p1_q3_m2" class="match-select">
-                                <option value="">-- Оберіть значення --</option>
+                                <option value="">-- Оберіть призначення --</option>
                                 <option value="create">Створює перемикач</option>
                                 <option value="store">Зберігає ціле значення</option>
                                 <option value="bind">Пов'язує перемикач зі змінною</option>
                                 <option value="get">Отримує значення змінної</option>
                             </select>
                         </div>
-                        <div class="match-row">
+                        <div class="match-item">
                             <span>3. <code>variable</code></span>
                             <select id="p1_q3_m3" class="match-select">
-                                <option value="">-- Оберіть значення --</option>
+                                <option value="">-- Оберіть призначення --</option>
                                 <option value="create">Створює перемикач</option>
                                 <option value="store">Зберігає ціле значення</option>
                                 <option value="bind">Пов'язує перемикач зі змінною</option>
                                 <option value="get">Отримує значення змінної</option>
                             </select>
                         </div>
-                        <div class="match-row">
+                        <div class="match-item">
                             <span>4. <code>get()</code></span>
                             <select id="p1_q3_m4" class="match-select">
-                                <option value="">-- Оберіть значення --</option>
+                                <option value="">-- Оберіть призначення --</option>
                                 <option value="create">Створює перемикач</option>
                                 <option value="store">Зберігає ціле значення</option>
                                 <option value="bind">Пов'язує перемикач зі змінною</option>
@@ -464,26 +505,29 @@ check = Checkbutton(root, text="Навчання", variable=var1)</code></pre>
 
                 <!-- Завдання 4 -->
                 <div class="card task-card" id="taskCard_p1_q4">
-                    <div class="task-header">
-                        <h4>Завдання 4 (2 бали). Інтерактивна перевірка стану</h4>
-                        <span class="task-score-badge" id="score_p1_q4">0 / 2 бали</span>
+                    <div class="task-title-row">
+                        <h4>Завдання 4 (2 бали). Практичне завдання з Симулятором №1</h4>
+                        <span class="task-pts-badge" id="score_p1_q4">0 / 2 бали</span>
                     </div>
-                    <p class="task-question">Перейди до Симулятора №1, увімкни кілька перемикачів і вкажи у полі нижче їхню поточну кількість:</p>
-                    <div class="input-inline">
+                    <p class="task-q-text">Перейди до Симулятора №1, увімкни кілька перемикачів та вкажи отриманну кількість у полі нижче:</p>
+                    <div class="input-inline-group">
                         <label for="p1_q4_input">Кількість увімкнених перемикачів у Симуляторі №1:</label>
                         <input type="number" id="p1_q4_input" min="0" max="5" placeholder="0">
                     </div>
                 </div>
 
-                <div class="check-action-bar">
-                    <button type="button" id="btnCheckPract1" class="btn btn-mint btn-lg">Перевірити Практику №1 📝</button>
-                    <div id="pract1Feedback" class="feedback-msg"></div>
+                <div class="action-footer center">
+                    <button type="button" id="btnCheckPract1" class="btn btn-teal btn-lg">Перевірити Практику №1 📝</button>
+                    <div id="pract1Feedback" class="feedback-toast"></div>
                 </div>
             </div>
 
-            <div class="page-nav-buttons">
-                <button type="button" class="btn btn-secondary nav-btn-prev" data-prev="page4">⬅️ Назад</button>
-                <button type="button" class="btn btn-primary nav-btn-next" data-next="page6">Далі до Практики №2 ➡️</button>
+            <div class="page-nav-bar">
+                <button type="button" class="btn btn-secondary btn-home-action">🏠 На головну</button>
+                <div class="nav-right">
+                    <button type="button" class="btn btn-secondary nav-btn-prev" data-prev="page4">⬅️ Назад</button>
+                    <button type="button" class="btn btn-primary nav-btn-next" data-next="page6">Далі ➡️</button>
+                </div>
             </div>
         </section>
 
@@ -492,52 +536,52 @@ check = Checkbutton(root, text="Навчання", variable=var1)</code></pre>
             <div class="block-header">
                 <div class="block-num">06</div>
                 <div>
-                    <h2>Практична частина №2 — Глобальні змінні</h2>
+                    <h2>💻 Практична частина №2 — Глобальні змінні</h2>
                     <p>Виконай 4 завдання по 2 бали кожне. Максимальна оцінка за блок: <strong>8 балів</strong>.</p>
                 </div>
             </div>
 
-            <div class="tasks-container">
+            <div class="tasks-stack">
                 <!-- Завдання 1 -->
                 <div class="card task-card" id="taskCard_p2_q1">
-                    <div class="task-header">
-                        <h4>Завдання 1 (2 бали). Вибір відповіді</h4>
-                        <span class="task-score-badge" id="score_p2_q1">0 / 2 бали</span>
+                    <div class="task-title-row">
+                        <h4>Завдання 1 (2 бали). Обери правильну відповідь</h4>
+                        <span class="task-pts-badge" id="score_p2_q1">0 / 2 бали</span>
                     </div>
-                    <p class="task-question">Яке ключове слово використовується для зміни значення глобальної змінної всередині функції?</p>
-                    <div class="options-list horizontal">
-                        <label class="option-item"><input type="radio" name="p2_q1" value="local"> local</label>
-                        <label class="option-item"><input type="radio" name="p2_q1" value="global"> global</label>
-                        <label class="option-item"><input type="radio" name="p2_q1" value="def"> def</label>
-                        <label class="option-item"><input type="radio" name="p2_q1" value="int"> int</label>
+                    <p class="task-q-text">Яке ключове слово використовується для зміни глобальної змінної всередині функції?</p>
+                    <div class="opts-grid horizontal">
+                        <label class="opt-card"><input type="radio" name="p2_q1" value="local"> local</label>
+                        <label class="opt-card"><input type="radio" name="p2_q1" value="global"> global</label>
+                        <label class="opt-card"><input type="radio" name="p2_q1" value="def"> def</label>
+                        <label class="opt-card"><input type="radio" name="p2_q1" value="int"> int</label>
                     </div>
                 </div>
 
                 <!-- Завдання 2 -->
                 <div class="card task-card" id="taskCard_p2_q2">
-                    <div class="task-header">
-                        <h4>Завдання 2 (2 бали). Доповнення коду</h4>
-                        <span class="task-score-badge" id="score_p2_q2">0 / 2 бали</span>
+                    <div class="task-title-row">
+                        <h4>Завдання 2 (2 бали). Доповни код</h4>
+                        <span class="task-pts-badge" id="score_p2_q2">0 / 2 бали</span>
                     </div>
-                    <p class="task-question">Яке слово потрібно вставити у пропуск, щоб функція змінила глобальну змінну <code>score</code>?</p>
+                    <p class="task-q-text">Вкажи ключове слово, яке потрібно вставити у пропуск:</p>
                     <pre class="code-block"><code>score = 10
 
 def change_score():
     ______ score
     score = score + 5</code></pre>
-                    <div class="input-inline">
-                        <label for="p2_q2_input">Введи пропущене слово:</label>
+                    <div class="input-inline-group">
+                        <label for="p2_q2_input">Пропущене слово:</label>
                         <input type="text" id="p2_q2_input" placeholder="слово..." autocomplete="off">
                     </div>
                 </div>
 
                 <!-- Завдання 3 -->
                 <div class="card task-card" id="taskCard_p2_q3">
-                    <div class="task-header">
-                        <h4>Завдання 3 (2 бали). Аналіз коду</h4>
-                        <span class="task-score-badge" id="score_p2_q3">0 / 2 бали</span>
+                    <div class="task-title-row">
+                        <h4>Завдання 3 (2 бали). Визнач результат виконання коду</h4>
+                        <span class="task-pts-badge" id="score_p2_q3">0 / 2 бали</span>
                     </div>
-                    <p class="task-question">Визнач, що виведе програма на екран після виконання коду:</p>
+                    <p class="task-q-text">Що виведе програма на екран?</p>
                     <pre class="code-block"><code>number = 4
 
 def change():
@@ -546,36 +590,39 @@ def change():
 
 change()
 print(number)</code></pre>
-                    <div class="options-list horizontal">
-                        <label class="option-item"><input type="radio" name="p2_q3" value="4"> 4</label>
-                        <label class="option-item"><input type="radio" name="p2_q3" value="8"> 8</label>
-                        <label class="option-item"><input type="radio" name="p2_q3" value="16"> 16</label>
-                        <label class="option-item"><input type="radio" name="p2_q3" value="Error"> Помилка</label>
+                    <div class="opts-grid horizontal">
+                        <label class="opt-card"><input type="radio" name="p2_q3" value="4"> 4</label>
+                        <label class="opt-card"><input type="radio" name="p2_q3" value="8"> 8</label>
+                        <label class="opt-card"><input type="radio" name="p2_q3" value="16"> 16</label>
+                        <label class="opt-card"><input type="radio" name="p2_q3" value="Error"> Помилка</label>
                     </div>
                 </div>
 
                 <!-- Завдання 4 -->
                 <div class="card task-card" id="taskCard_p2_q4">
-                    <div class="task-header">
-                        <h4>Завдання 4 (2 бали). Інтерактивна вправа з Симулятором №2</h4>
-                        <span class="task-score-badge" id="score_p2_q4">0 / 2 бали</span>
+                    <div class="task-title-row">
+                        <h4>Завдання 4 (2 бали). Практична вправа з Симулятором №2</h4>
+                        <span class="task-pts-badge" id="score_p2_q4">0 / 2 бали</span>
                     </div>
-                    <p class="task-question">За допомогою кнопок Симулятора №2 налаштуй значення лічильника так, щоб отримати рівно <strong>10</strong>. Вкажи поточне значення лічильника:</p>
-                    <div class="input-inline">
-                        <label for="p2_q4_input">Значення лічильника з Симулятора №2:</label>
+                    <p class="task-q-text">За допомогою кнопок Симулятора №2 отримай результат <strong>10</strong> та вкажи це значення у полі нижче:</p>
+                    <div class="input-inline-group">
+                        <label for="p2_q4_input">Отримане значення лічильника:</label>
                         <input type="number" id="p2_q4_input" placeholder="0">
                     </div>
                 </div>
 
-                <div class="check-action-bar">
-                    <button type="button" id="btnCheckPract2" class="btn btn-mint btn-lg">Перевірити Практику №2 📝</button>
-                    <div id="pract2Feedback" class="feedback-msg"></div>
+                <div class="action-footer center">
+                    <button type="button" id="btnCheckPract2" class="btn btn-teal btn-lg">Перевірити Практику №2 📝</button>
+                    <div id="pract2Feedback" class="feedback-toast"></div>
                 </div>
             </div>
 
-            <div class="page-nav-buttons">
-                <button type="button" class="btn btn-secondary nav-btn-prev" data-prev="page5">⬅️ Назад</button>
-                <button type="button" class="btn btn-primary nav-btn-next" data-next="page7">Далі до Підсумкового тесту ➡️</button>
+            <div class="page-nav-bar">
+                <button type="button" class="btn btn-secondary btn-home-action">🏠 На головну</button>
+                <div class="nav-right">
+                    <button type="button" class="btn btn-secondary nav-btn-prev" data-prev="page5">⬅️ Назад</button>
+                    <button type="button" class="btn btn-primary nav-btn-next" data-next="page7">Далі ➡️</button>
+                </div>
             </div>
         </section>
 
@@ -584,23 +631,26 @@ print(number)</code></pre>
             <div class="block-header">
                 <div class="block-num">07</div>
                 <div>
-                    <h2>Підсумковий тест (16 балів)</h2>
-                    <p>Дай відповіді на 8 контрольних запитань (по 2 бали за кожне правильне запитання).</p>
+                    <h2>📝 Підсумковий тест (16 балів)</h2>
+                    <p>Дай відповіді на 8 контрольних запитань (по 2 бали за кожну правильну відповідь).</p>
                 </div>
             </div>
 
-            <div class="quiz-container card">
+            <div class="card quiz-wrapper">
                 <div id="quizQuestionsArea"></div>
 
-                <div class="check-action-bar">
-                    <button type="button" id="btnCheckQuiz" class="btn btn-mint btn-lg">Зафіксувати відповіді тесту 🎯</button>
-                    <div id="quizFeedback" class="feedback-msg"></div>
+                <div class="action-footer center">
+                    <button type="button" id="btnCheckQuiz" class="btn btn-teal btn-lg">Зафіксувати відповіді тесту 🎯</button>
+                    <div id="quizFeedback" class="feedback-toast"></div>
                 </div>
             </div>
 
-            <div class="page-nav-buttons">
-                <button type="button" class="btn btn-secondary nav-btn-prev" data-prev="page6">⬅️ Назад</button>
-                <button type="button" class="btn btn-primary nav-btn-next" data-next="page8">Перейти до Підсумкового звіту 🏆</button>
+            <div class="page-nav-bar">
+                <button type="button" class="btn btn-secondary btn-home-action">🏠 На головну</button>
+                <div class="nav-right">
+                    <button type="button" class="btn btn-secondary nav-btn-prev" data-prev="page6">⬅️ Назад</button>
+                    <button type="button" class="btn btn-primary nav-btn-next" data-next="page8">Далі до Звіту ➡️</button>
+                </div>
             </div>
         </section>
 
@@ -611,25 +661,25 @@ print(number)</code></pre>
                 <!-- АКТУАЛЬНИЙ БЛАНК ЗВІТУ ДЛЯ ДРУКУ ТА ПЕРЕГЛЯДУ -->
                 <div id="printableReport" class="report-card">
                     <div class="report-header">
-                        <div class="school-title">КЗ «Ліцей "Інтелект" Долинської міської ради»</div>
+                        <div class="school-name">КЗ «Ліцей "Інтелект" Долинської міської ради»</div>
                         <h2>ЗВІТ ПРО ВИКОНАННЯ ПРАКТИЧНОЇ РОБОТИ</h2>
-                        <div class="report-subtitle">з інформатики для учня 8-го класу</div>
+                        <div class="report-sub">з інформатики для учня 8-го класу</div>
                     </div>
 
-                    <div class="report-info-grid">
-                        <div class="info-cell"><strong>Предмет:</strong> Інформатика</div>
-                        <div class="info-cell"><strong>Клас:</strong> <span id="repClass">—</span></div>
-                        <div class="info-cell"><strong>Тема:</strong> Використання перемикачів. Глобальні змінні в Python</div>
-                        <div class="info-cell"><strong>Учень / учениця:</strong> <span id="repFullName">—</span></div>
-                        <div class="info-cell"><strong>Дата виконання:</strong> <span id="repDate">—</span></div>
-                        <div class="info-cell"><strong>Статус:</strong> <span id="repStatus" class="status-pass">Виконано</span></div>
+                    <div class="report-meta-grid">
+                        <div class="meta-item"><strong>Предмет:</strong> Інформатика</div>
+                        <div class="meta-item"><strong>Клас:</strong> <span id="repClass">—</span></div>
+                        <div class="meta-item"><strong>Тема:</strong> Використання перемикачів. Глобальні змінні в Python</div>
+                        <div class="meta-item"><strong>Учень / учениця:</strong> <span id="repFullName">—</span></div>
+                        <div class="meta-item"><strong>Дата виконання:</strong> <span id="repDate">—</span></div>
+                        <div class="meta-item"><strong>Статус роботи:</strong> <span id="repStatus" class="status-pass">Виконано</span></div>
                     </div>
 
-                    <h3>Деталізація балів за навчальними блоками:</h3>
+                    <h3 class="rep-table-title">Результати оцінювання за навчальними блоками:</h3>
                     <table class="report-table">
                         <thead>
                             <tr>
-                                <th>Навчальний блок</th>
+                                <th>Блок</th>
                                 <th>Максимальний бал</th>
                                 <th>Набрано балів</th>
                             </tr>
@@ -646,7 +696,7 @@ print(number)</code></pre>
                                 <td id="repSim1Score">0 балів</td>
                             </tr>
                             <tr>
-                                <td>Симулятор №2 (Global Variable)</td>
+                                <td>Симулятор №2 (Global Variables)</td>
                                 <td>2 бали</td>
                                 <td id="repSim2Score">0 балів</td>
                             </tr>
@@ -673,27 +723,28 @@ print(number)</code></pre>
                         </tbody>
                     </table>
 
-                    <div class="report-summary-box">
-                        <div class="summary-metric">
-                            <span class="metric-title">Відсоток виконання:</span>
-                            <span id="repPercent" class="metric-value">0%</span>
+                    <div class="summary-metrics-box">
+                        <div class="metric-card">
+                            <span class="m-label">Відсоток виконання:</span>
+                            <span id="repPercent" class="m-val">0%</span>
                         </div>
-                        <div class="summary-metric">
-                            <span class="metric-title">Оцінка за 12-бальною шкалою:</span>
-                            <span id="repGrade12" class="metric-value grade-highlight">0 балів</span>
+                        <div class="metric-card highlight">
+                            <span class="m-label">Оцінка за 12-бальною шкалою:</span>
+                            <span id="repGrade12" class="m-val">0 балів</span>
                         </div>
                     </div>
 
-                    <div class="signatures-area">
-                        <div class="signature-line">Підпис учня: ____________________</div>
-                        <div class="signature-line">Підпис вчителя: ____________________</div>
+                    <div class="signature-section">
+                        <div class="sig-box">Підпис учня: ____________________</div>
+                        <div class="sig-box">Підпис вчителя: ____________________</div>
                     </div>
                 </div>
 
-                <!-- Панель дій у звіті -->
+                <!-- ДІЇ ЗВІТУ -->
                 <div class="report-actions-bar no-print">
-                    <button type="button" id="btnPrintReport" class="btn btn-mint btn-lg">🖨️ Друкувати звіт / Зберегти у PDF</button>
-                    <button type="button" id="btnResetAll" class="btn btn-secondary btn-lg">🔄 Очистити прогрес і почати спочатку</button>
+                    <button type="button" id="btnPrintReport" class="btn btn-teal btn-lg">🖨️ Друкувати звіт / Зберегти в PDF</button>
+                    <button type="button" id="btnResetAll" class="btn btn-secondary btn-lg">🔄 Почати спочатку</button>
+                    <button type="button" class="btn btn-secondary btn-home-action btn-lg">🏠 На головну</button>
                 </div>
 
             </div>

@@ -32,7 +32,7 @@ const QUIZ_QUESTIONS = [
     },
     {
         id: "q2",
-        question: "2. Спеціальна змінна IntVar() у Tkinter після вмикання перемикача отримує значение:",
+        question: "2. Спеціальна змінна IntVar() у Tkinter після вмикання перемикача отримує значення:",
         options: ["0", "1", "True", "None"],
         answer: 1,
         explain: "Значення 1 означає, що перемикач увімкнений."
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // LOAD & SAVE LOCALSTORAGE
 function loadState() {
-    const saved = localStorage.getItem('py_gui_lab_8klas_state');
+    const saved = localStorage.getItem('py_gui_lab_8klas_redesign_state');
     if (saved) {
         try {
             const parsed = JSON.parse(saved);
@@ -128,7 +128,7 @@ function saveState() {
         ...STATE,
         completedPages: Array.from(STATE.completedPages)
     };
-    localStorage.setItem('py_gui_lab_8klas_state', JSON.stringify(dataToSave));
+    localStorage.setItem('py_gui_lab_8klas_redesign_state', JSON.stringify(dataToSave));
 }
 
 // BIND EVENTS
@@ -154,6 +154,11 @@ function bindEvents() {
             const prev = btn.getAttribute('data-prev');
             if (prev) switchTab(prev);
         });
+    });
+
+    // Home Buttons
+    document.querySelectorAll('.btn-home-action').forEach(btn => {
+        btn.addEventListener('click', () => switchTab('page1'));
     });
 
     // Start Button
@@ -193,7 +198,6 @@ function bindEvents() {
 
 // SWITCH NAVIGATION TAB
 function switchTab(pageId) {
-    // Validation: Require Name before moving past Page 1
     if (pageId !== 'page1' && (!STATE.studentLastName || !STATE.studentFirstName)) {
         alert("Будь ласка, вкажи своє Прізвище та Ім'я на стартовій сторінці!");
         return;
@@ -248,7 +252,7 @@ function runSim1() {
     });
 
     STATE.sim1Count = count;
-    STATE.sim1Points = count > 0 ? 2 : 0; // 2 points for condition
+    STATE.sim1Points = count > 0 ? 2 : 0;
 
     const resBox = document.getElementById('sim1ResultBox');
     resBox.classList.remove('hidden');
@@ -277,7 +281,7 @@ function updateSim2(delta, isReset = false) {
     }
 
     if (STATE.sim2Value === 10) {
-        STATE.sim2Points = 2; // 2 points condition met
+        STATE.sim2Points = 2;
     }
 
     document.getElementById('sim2ScoreValue').innerText = STATE.sim2Value;
@@ -291,22 +295,18 @@ function updateSim2(delta, isReset = false) {
 function checkPract1() {
     let pts = 0;
 
-    // Q1 (2 pts)
     const q1Val = getRadioVal('p1_q1');
     if (q1Val === 'Checkbutton') pts += 2;
 
-    // Q2 (2 pts)
     const q2Val = getRadioVal('p1_q2');
     if (q2Val === 'IntVar') pts += 2;
 
-    // Q3 (2 pts)
     const m1 = document.getElementById('p1_q3_m1').value;
     const m2 = document.getElementById('p1_q3_m2').value;
     const m3 = document.getElementById('p1_q3_m3').value;
     const m4 = document.getElementById('p1_q3_m4').value;
     if (m1 === 'create' && m2 === 'store' && m3 === 'bind' && m4 === 'get') pts += 2;
 
-    // Q4 (2 pts)
     const q4Input = parseInt(document.getElementById('p1_q4_input').value) || 0;
     if (q4Input === STATE.sim1Count && STATE.sim1Count >= 0) pts += 2;
 
@@ -314,7 +314,7 @@ function checkPract1() {
     STATE.pract1Checked = true;
 
     const fb = document.getElementById('pract1Feedback');
-    fb.className = "feedback-msg success";
+    fb.className = "feedback-toast success";
     fb.innerText = `Практику №1 перевірено! Твій результат: ${pts} / 8 балів.`;
 
     saveState();
@@ -325,19 +325,15 @@ function checkPract1() {
 function checkPract2() {
     let pts = 0;
 
-    // Q1 (2 pts)
     const q1Val = getRadioVal('p2_q1');
     if (q1Val === 'global') pts += 2;
 
-    // Q2 (2 pts)
     const q2Val = document.getElementById('p2_q2_input').value.trim().toLowerCase();
     if (q2Val === 'global') pts += 2;
 
-    // Q3 (2 pts)
     const q3Val = getRadioVal('p2_q3');
     if (q3Val === '8') pts += 2;
 
-    // Q4 (2 pts)
     const q4Val = parseInt(document.getElementById('p2_q4_input').value);
     if (q4Val === 10 && STATE.sim2Value === 10) pts += 2;
 
@@ -345,7 +341,7 @@ function checkPract2() {
     STATE.pract2Checked = true;
 
     const fb = document.getElementById('pract2Feedback');
-    fb.className = "feedback-msg success";
+    fb.className = "feedback-toast success";
     fb.innerText = `Практику №2 перевірено! Твій результат: ${pts} / 8 балів.`;
 
     saveState();
@@ -359,18 +355,18 @@ function renderQuiz() {
 
     area.innerHTML = QUIZ_QUESTIONS.map((q, idx) => `
         <div class="card task-card">
-            <div class="task-header">
+            <div class="task-title-row">
                 <h4>${q.question}</h4>
-                <span class="task-score-badge">2 бали</span>
+                <span class="task-pts-badge">2 бали</span>
             </div>
-            <div class="options-list">
+            <div class="opts-grid">
                 ${q.options.map((opt, oIdx) => `
-                    <label class="option-item">
+                    <label class="opt-card">
                         <input type="radio" name="${q.id}" value="${oIdx}"> ${opt}
                     </label>
                 `).join('')}
             </div>
-            <div id="explain_${q.id}" class="note-box hidden">💡 ${q.explain}</div>
+            <div id="explain_${q.id}" class="note-box purple hidden" style="margin-top:12px;">💡 ${q.explain}</div>
         </div>
     `).join('');
 }
@@ -392,7 +388,7 @@ function checkQuiz() {
     STATE.quizChecked = true;
 
     const fb = document.getElementById('quizFeedback');
-    fb.className = "feedback-msg success";
+    fb.className = "feedback-toast success";
     fb.innerText = `Підсумковий тест складено! Результат: ${pts} / 16 балів. Пояснення до запитань відкрито.`;
 
     saveState();
@@ -407,22 +403,29 @@ function getRadioVal(name) {
 
 // UPDATE UI & TOTAL SCORE CALCULATIONS
 function updateUI() {
-    // Sync Name & Class
     const fullName = (STATE.studentLastName + ' ' + STATE.studentFirstName).trim() || "Не вказано";
     document.getElementById('headerStudentName').innerText = fullName;
     document.getElementById('headerStudentClass').value = STATE.studentClass || '';
 
-    // Calculate Total Score (36 Max)
+    // Form sync
+    if (STATE.studentLastName) document.getElementById('inputLastName').value = STATE.studentLastName;
+    if (STATE.studentFirstName) document.getElementById('inputFirstName').value = STATE.studentFirstName;
+    if (STATE.studentClass) document.getElementById('inputClass').value = STATE.studentClass;
+
     const totalPoints = STATE.sim1Points + STATE.sim2Points + STATE.pract1Points + STATE.pract2Points + STATE.quizScore;
     document.getElementById('headerScore').innerText = `${totalPoints} / 36`;
 
-    // Progress Bar %
     const percentProgress = Math.round((STATE.completedPages.size / 8) * 100);
     document.getElementById('progressBarFill').style.width = `${percentProgress}%`;
 
-    // Sim Tags
-    document.getElementById('sim1PointsTag').innerText = `${STATE.sim1Points} / 2`;
-    document.getElementById('sim2PointsTag').innerText = `${STATE.sim2Points} / 2`;
+    // Mark tab buttons completed
+    STATE.completedPages.forEach(pId => {
+        const tBtn = document.querySelector(`.tab-btn[data-tab="${pId}"]`);
+        if (tBtn) tBtn.classList.add('completed');
+    });
+
+    document.getElementById('sim1PointsTag').innerText = `${STATE.sim1Points} / 2 бали`;
+    document.getElementById('sim2PointsTag').innerText = `${STATE.sim2Points} / 2 бали`;
 
     // Report Page Updates
     document.getElementById('repFullName').innerText = fullName;
@@ -440,7 +443,6 @@ function updateUI() {
     const percentTotal = Math.round((totalPoints / 36) * 100);
     document.getElementById('repPercent').innerText = `${percentTotal}%`;
 
-    // 12-point Formula: Score / 36 * 12
     const grade12 = Math.round((totalPoints / 36) * 12);
     document.getElementById('repGrade12').innerText = `${grade12} балів`;
 }
@@ -448,7 +450,7 @@ function updateUI() {
 // RESET ALL DATA
 function resetAll() {
     if (confirm("Ви дійсно бажаєте очистити всі відповіді та почати роботу знову?")) {
-        localStorage.removeItem('py_gui_lab_8klas_state');
+        localStorage.removeItem('py_gui_lab_8klas_redesign_state');
         location.reload();
     }
 }
